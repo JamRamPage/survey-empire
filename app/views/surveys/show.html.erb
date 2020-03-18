@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Belongs to:</strong>
+  <%= @survey.belongs_to %>
+</p>
+
+<p>
+  <strong>Public:</strong>
+  <%= @survey.public %>
+</p>
+
+<p>
+  <strong>Creationdate:</strong>
+  <%= @survey.creationDate %>
+</p>
+
+<p>
+  <strong>Expirydate:</strong>
+  <%= @survey.expiryDate %>
+</p>
+
+<p>
+  <strong>Likes:</strong>
+  <%= @survey.likes %>
+</p>
+
+<p>
+  <strong>Dislikes:</strong>
+  <%= @survey.dislikes %>
+</p>
+
+<%= link_to 'Edit', edit_survey_path(@survey) %> |
+<%= link_to 'Back', surveys_path %>

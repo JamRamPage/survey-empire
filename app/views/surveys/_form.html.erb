@@ -1,0 +1,47 @@
+<%= form_with(model: survey, local: true) do |form| %>
+  <% if survey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+
+      <ul>
+      <% survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :belongs_to %>
+    <%= form.text_field :belongs_to %>
+  </div>
+
+  <div class="field">
+    <%= form.label :public %>
+    <%= form.check_box :public %>
+  </div>
+
+  <div class="field">
+    <%= form.label :creationDate %>
+    <%= form.text_field :creationDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expiryDate %>
+    <%= form.text_field :expiryDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :likes %>
+    <%= form.text_field :likes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dislikes %>
+    <%= form.text_field :dislikes %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
