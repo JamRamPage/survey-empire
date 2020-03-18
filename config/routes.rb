@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :surveys
   root 'home#home'
   get 'home/contact'
   devise_for :users
