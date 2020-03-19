@@ -17,7 +17,7 @@ class SurveysControllerTest < ActionDispatch::IntegrationTest
 
   test "should create survey" do
     assert_difference('Survey.count') do
-      post surveys_url, params: { survey: { belongs_to: @survey.belongs_to, creationDate: @survey.creationDate, dislikes: @survey.dislikes, expiryDate: @survey.expiryDate, likes: @survey.likes, public: @survey.public } }
+      post surveys_url, params: { survey: { creationDate: @survey.creationDate, dislikes: @survey.dislikes, expiryDate: @survey.expiryDate, likes: @survey.likes, public: @survey.public } }
     end
 
     assert_redirected_to survey_url(Survey.last)
@@ -34,7 +34,7 @@ class SurveysControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update survey" do
-    patch survey_url(@survey), params: { survey: { belongs_to: @survey.belongs_to, creationDate: @survey.creationDate, dislikes: @survey.dislikes, expiryDate: @survey.expiryDate, likes: @survey.likes, public: @survey.public } }
+    patch survey_url(@survey), params: { survey: { creationDate: @survey.creationDate, dislikes: @survey.dislikes, expiryDate: @survey.expiryDate, likes: @survey.likes, public: @survey.public } }
     assert_redirected_to survey_url(@survey)
   end
 

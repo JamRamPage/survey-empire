@@ -14,7 +14,6 @@ class SurveysTest < ApplicationSystemTestCase
     visit surveys_url
     click_on "New Survey"
 
-    fill_in "Belongs to", with: @survey.belongs_to
     fill_in "Creationdate", with: @survey.creationDate
     fill_in "Dislikes", with: @survey.dislikes
     fill_in "Expirydate", with: @survey.expiryDate
@@ -30,7 +29,6 @@ class SurveysTest < ApplicationSystemTestCase
     visit surveys_url
     click_on "Edit", match: :first
 
-    fill_in "Belongs to", with: @survey.belongs_to
     fill_in "Creationdate", with: @survey.creationDate
     fill_in "Dislikes", with: @survey.dislikes
     fill_in "Expirydate", with: @survey.expiryDate
