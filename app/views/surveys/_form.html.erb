@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :survey_name %>
+    <%= form.text_field :survey_name, required: true %>
+  </div>
+
+  <div class="field">
     <%= form.label :public %>
     <%= form.check_box :public %>
   </div>

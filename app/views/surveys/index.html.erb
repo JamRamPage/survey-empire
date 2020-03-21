@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Public</th>
+      <th>Name</th>
       <th>Creationdate</th>
       <th>Expirydate</th>
       <th>Likes</th>
@@ -17,7 +17,7 @@
   <tbody>
     <% @surveys.each do |survey| %>
       <tr>
-        <td><%= survey.public %></td>
+        <td><%= survey.survey_name %></td>
         <td><%= survey.creationDate %></td>
         <td><%= survey.expiryDate %></td>
         <td><%= survey.likes %></td>
