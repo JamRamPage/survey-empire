@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :question_option_selections
+  resources :question_options
   resources :question_answers
   resources :questions
   resources :surveys

@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_121622) do
+ActiveRecord::Schema.define(version: 2020_03_21_124150) do
 
   create_table "question_answers", force: :cascade do |t|
-    t.integer "question_id"
-    t.integer "user_id"
+    t.integer "question_id", null: false
+    t.integer "user_id", null: false
     t.string "givenAnswer"
     t.datetime "timeStarted"
     t.datetime "timeEnded"
@@ -24,22 +24,40 @@ ActiveRecord::Schema.define(version: 2020_03_21_121622) do
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
 
+  create_table "question_option_selections", force: :cascade do |t|
+    t.integer "question_answer_id", null: false
+    t.integer "question_option_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_answer_id"], name: "index_question_option_selections_on_question_answer_id"
+    t.index ["question_option_id"], name: "index_question_option_selections_on_question_option_id"
+  end
+
+  create_table "question_options", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.string "optionString", null: false
+    t.boolean "correct"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_question_options_on_question_id"
+  end
+
   create_table "questions", force: :cascade do |t|
-    t.integer "survey_id"
-    t.string "questionString"
-    t.boolean "multipleChoice"
-    t.boolean "multipleAnswer"
+    t.integer "survey_id", null: false
+    t.string "questionString", null: false
+    t.boolean "multipleChoice", default: false, null: false
+    t.boolean "multipleAnswer", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
   create_table "surveys", force: :cascade do |t|
-    t.boolean "public"
-    t.datetime "creationDate"
-    t.datetime "expiryDate"
-    t.integer "likes"
-    t.integer "dislikes"
+    t.boolean "public", default: false, null: false
+    t.datetime "creationDate", null: false
+    t.datetime "expiryDate", null: false
+    t.integer "likes", default: 0, null: false
+    t.integer "dislikes", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"

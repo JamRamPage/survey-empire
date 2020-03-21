@@ -3,7 +3,7 @@ class CreateQuestionOptions < ActiveRecord::Migration[5.2]
     create_table :question_options do |t|
       t.belongs_to :question, foreign_key: true, null: false
       t.string :optionString, null: false
-      t.boolean :correct, comment: 'can be neither, if the survey is subjective'
+      t.boolean :correct, comment: 'can be null, if the survey is subjective'
 
       t.timestamps
     end
