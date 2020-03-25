@@ -25,5 +25,13 @@
   <%= @survey.dislikes %>
 </p>
 
+<h2>Questions</h2>
+<% for question in @survey.questions %>
+  <ul>
+    <li><%= question.body %></li>
+  </ul>
+<% end %>
+
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
+<%= link_to 'Add Question', survey_questions_path(@survey) %> |
 <%= link_to 'Back', surveys_path %>
