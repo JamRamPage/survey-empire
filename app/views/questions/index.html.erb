@@ -16,13 +16,13 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <td><%= question.survey %></td>
+        <td><%= question.survey.name %></td>
         <td><%= question.questionString %></td>
         <td><%= question.multipleChoice %></td>
         <td><%= question.multipleAnswer %></td>
         <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_survey_question_path(@survey, question) %></td>
+        <td><%= link_to 'Destroy', [@survey, question], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_survey_question_path(@survey) %>
