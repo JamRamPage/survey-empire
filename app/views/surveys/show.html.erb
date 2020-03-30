@@ -28,7 +28,9 @@
 <h2>Questions</h2>
 <% for question in @survey.questions %>
   <ul>
-    <li><%= question.questionString %></li>
+    <li><%= question.questionString %>
+    <%= link_to 'Show Question', survey_question_path(@survey, question) %>
+    </li>
   </ul>
 <% end %>
 

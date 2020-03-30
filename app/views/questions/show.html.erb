@@ -20,5 +20,13 @@
   <%= @question.multipleAnswer %>
 </p>
 
+<h2>Options</h2>
+<% for question_option in @question.question_options %>
+    <ul>
+      <li><%= question_option.optionString %></li>
+  </ul>
+<% end %>
+
 <%= link_to 'Edit', edit_survey_question_path(@survey, @question) %> |
+<%= link_to 'Add Option', survey_question_question_options_path(@survey, @question) %> |
 <%= link_to 'Back', survey_questions_path(@survey) %>
