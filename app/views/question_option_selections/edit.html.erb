@@ -2,5 +2,5 @@
 
 <%= render 'form', question_option_selection: @question_option_selection %>
 
-<%= link_to 'Show', @question_option_selection %> |
-<%= link_to 'Back', question_option_selections_path %>
+<%= link_to 'Show', [@question_answer, @question_option_selection] %> |
+<%= link_to 'Back', question_answer_question_option_selections_path(@question_answer) %>

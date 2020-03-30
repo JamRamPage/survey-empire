@@ -16,9 +16,9 @@
       <tr>
         <td><%= question_option_selection.question_answer %></td>
         <td><%= question_option_selection.question_option %></td>
-        <td><%= link_to 'Show', question_option_selection %></td>
-        <td><%= link_to 'Edit', edit_question_option_selection_path(question_option_selection) %></td>
-        <td><%= link_to 'Destroy', question_option_selection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show Question Answer', [@question_answer] %></td>
+        <td><%= link_to 'Edit', edit_question_answer_question_option_selection_path(@question_answer, question_option_selection) %></td>
+        <td><%= link_to 'Destroy Selection', [@question_answer, question_option_selection], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Question Option Selection', new_question_option_selection_path %>
+<%= link_to 'New Question Option Selection', new_question_answer_question_option_selection_path(@question_answer) %>

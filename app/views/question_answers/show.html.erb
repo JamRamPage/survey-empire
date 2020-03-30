@@ -13,6 +13,12 @@
 <p>
   <strong>Givenanswer:</strong>
   <%= @question_answer.givenAnswer %>
+  <strong>Selections:</strong>
+  <% for question_option_selection in @question_answer.question_option_selections %>
+    <ul>
+      <li><%= QuestionOption.optionString.where(:id => question_option_selection.id) %>
+    </ul>
+  <% end %>
 </p>
 
 <p>
@@ -26,4 +32,5 @@
 </p>
 
 <%= link_to 'Edit', edit_question_answer_path(@question_answer) %> |
+<%= link_to 'Add Selection', question_answer_question_option_selections_path(@question_answer) %> |
 <%= link_to 'Back', question_answers_path %>
