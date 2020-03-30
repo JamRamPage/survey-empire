@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :question_options
   resources :question_answers
   resources :surveys do
-	  resources :questions
+     resources :questions
   end
   root 'home#home'
   get 'home/contact'
