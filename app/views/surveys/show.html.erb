@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<% if params['answered'] == 'true' then %>
+<% if params['answered'] == 'true' or params['belongsToUser'] == 'true' then %>
   <p>
     <strong>Name:</strong>
     <%= @survey.survey_name %>
@@ -39,4 +39,5 @@
   <%= link_to 'Back', surveys_path %>
 <% else %>
 Enter form to answer survey
+<%= @survey.user_id %>
 <% end %>

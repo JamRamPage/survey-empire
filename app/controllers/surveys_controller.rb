@@ -16,7 +16,7 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
-    if params['answered'] == 'true' then
+    if params['answered'] == 'true' or params['belongsToUser'] == 'true' then
       puts 'showing survey'
     else
       puts 'showing form to answer survey'
