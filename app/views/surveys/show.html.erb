@@ -1,39 +1,42 @@
 <p id="notice"><%= notice %></p>
+<% if params['answered'] == 'true' then %>
+  <p>
+    <strong>Name:</strong>
+    <%= @survey.survey_name %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @survey.survey_name %>
-</p>
+  <p>
+    <strong>Creationdate:</strong>
+    <%= @survey.creationDate %>
+  </p>
 
-<p>
-  <strong>Creationdate:</strong>
-  <%= @survey.creationDate %>
-</p>
+  <p>
+    <strong>Expirydate:</strong>
+    <%= @survey.expiryDate %>
+  </p>
 
-<p>
-  <strong>Expirydate:</strong>
-  <%= @survey.expiryDate %>
-</p>
+  <p>
+    <strong>Likes:</strong>
+    <%= @survey.likes %>
+  </p>
 
-<p>
-  <strong>Likes:</strong>
-  <%= @survey.likes %>
-</p>
+  <p>
+    <strong>Dislikes:</strong>
+    <%= @survey.dislikes %>
+  </p>
 
-<p>
-  <strong>Dislikes:</strong>
-  <%= @survey.dislikes %>
-</p>
+  <h2>Questions</h2>
+  <% for question in @survey.questions %>
+    <ul>
+      <li><%= question.questionString %>
+      <%= link_to 'Show Question', survey_question_path(@survey, question) %>
+      </li>
+    </ul>
+  <% end %>
 
-<h2>Questions</h2>
-<% for question in @survey.questions %>
-  <ul>
-    <li><%= question.questionString %>
-    <%= link_to 'Show Question', survey_question_path(@survey, question) %>
-    </li>
-  </ul>
+  <%= link_to 'Edit', edit_survey_path(@survey) %> |
+  <%= link_to 'Add Question', survey_questions_path(@survey) %> |
+  <%= link_to 'Back', surveys_path %>
+<% else %>
+Enter form to answer survey
 <% end %>
-
-<%= link_to 'Edit', edit_survey_path(@survey) %> |
-<%= link_to 'Add Question', survey_questions_path(@survey) %> |
-<%= link_to 'Back', surveys_path %>

@@ -2,12 +2,11 @@
 <p>Find me in app/views/home/home.html.erb</p>
 <p>The home page for SurveyEmpire. Here you should be able to log in, and then
 navigate to pages for survey creation, and survey searching</p>
-
 <% if user_signed_in? %>
   <%= link_to 'Create Survey', new_survey_path %>
-  <%= link_to 'My Surveys', surveys_path %>
+  <%= link_to 'My Surveys', surveys_path  + '?drafts=true'%>
   <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
 <% else %>
   <%= link_to 'Login', new_user_session_path %>
 <% end %>
-<%= link_to 'Search for Surveys', surveys_path %></br>
+<%= link_to 'Search for Surveys', surveys_path + '?drafts=false'%></br>

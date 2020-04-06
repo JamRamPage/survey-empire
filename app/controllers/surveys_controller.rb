@@ -4,12 +4,23 @@ class SurveysController < ApplicationController
   # GET /surveys
   # GET /surveys.json
   def index
-    @surveys = Survey.all
+    if params['drafts'] == 'true' then
+      puts 'showing surveys belonging to current user'
+      @surveys = Survey.where(:user_id => current_user)
+    else
+      puts 'showing all public surveys'
+      @surveys = Survey.where(:public => true)
+    end
   end
 
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    if params['answered'] == 'true' then
+      puts 'showing survey'
+    else
+      puts 'showing form to answer survey'
+    end
   end
 
   # GET /surveys/new
@@ -69,6 +80,6 @@ class SurveysController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def survey_params
-      params.require(:survey).permit(:survey_name, :public, :creationDate, :expiryDate, :likes, :dislikes)
+      params.require(:survey).permit(:survey_name, :public, :creationDate, :expiryDate, :likes, :dislikes, :user_id)
     end
 end

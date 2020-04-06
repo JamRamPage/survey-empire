@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<% if params['drafts'] == 'true' then %>
+Showing Surveys that the Current User has made
+<% else %>
+Showing all surveys
+<% end %>
 <h1>Surveys</h1>
 
 <table>
@@ -22,10 +26,16 @@
         <td><%= survey.expiryDate %></td>
         <td><%= survey.likes %></td>
         <td><%= survey.dislikes %></td>
-        <td><%= link_to 'Show', survey %></td>
+
+        <% if QuestionAnswer.where(:user_id => current_user).where(:survey_id => survey).select("COUNT(*)").size > 0 %>
+          <%# they have answered the question %>
+          <td><%= link_to 'Show', survey_path(survey) + '?answered=true' %></td>
+        <% else %>
+          <%# they have not answered the question %>
+          <td><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
+        <% end %>
         <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
         <td><%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Answer Survey', new_question_answer_path %></td>
       </tr>
     <% end %>
   </tbody>
