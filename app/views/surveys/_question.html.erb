@@ -1,0 +1,40 @@
+<table frame='box'>
+<tr>
+  <td>
+    <%= form.label :questionString %>
+    <%= form.text_field :questionString %>
+  </td>
+  <td>
+    <%= form.label :multipleChoice %>
+    <%= form.check_box :multipleChoice %>
+  </td>
+  <td>
+    <%= form.label :multipleAnswer %>
+    <%= form.check_box :multipleAnswer %>
+  </td>
+  <td>
+    <%= form.hidden_field :_destroy %>
+    <%= link_to 'Delete', '#', class: 'remove_record' %>
+    <%#= link_to_remove_association "Remove Question", form, class: 'btn btn-primary' %>
+  </td>
+</tr>
+  <table class='nested_fields'>
+    <thead>
+      <tr>
+        <th>Option String</th>
+        <th>Correct?</th>
+        <th></th>
+      <tr>
+    </thead>
+    <tr>
+      <td>
+        <%= form.fields_for :question_options do |question_options_form| %>
+          <%= render 'question_option', form: question_options_form %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to_add_row('Add Option', form, :question_options, true, class: 'btn btn-primary') %><br>
+      </td>
+    </tr>
+  </table>
+</table>

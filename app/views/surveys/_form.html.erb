@@ -46,7 +46,31 @@
     <%= form.number_field :dislikes %>
   </div>
 
+  <br><br><br><br>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Question String</th>
+        <th>Multiple Choice</th>
+        <th>Multiple Answer</th>
+        <th></th>
+      <tr>
+    </thead>
+    <tbody class="fields" frame='box'>
+      <%= form.fields_for :questions do |questions_form| %>
+        <%= render 'question', form: questions_form %>
+        <div class="actions">
+
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+
   <div class="actions">
+    <%= link_to_add_row('Add Question', form, :questions, false, class: 'btn btn-primary') %><br>
+    <%#= link_to_add_association 'Add Question', form, :questions, class: 'btn btn-primary', data: {
+      association_insertion_node: '.questions', association_insertion_node: :append} %><br>
     <%= form.submit %>
   </div>
 <% end %>
