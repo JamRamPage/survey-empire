@@ -15,6 +15,7 @@ class QuestionOptionsController < ApplicationController
 
   # GET /question_options/new
   def new
+    puts 'HEY IM IN UR NEW METHOD BIATCH'
     @question_option = @question.question_options.build
   end
 

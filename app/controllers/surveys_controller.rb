@@ -81,7 +81,8 @@ class SurveysController < ApplicationController
     # Only allow a list of trusted parameters through.
     def survey_params
       params.require(:survey).permit(:survey_name, :public, :creationDate, :expiryDate, :likes, :dislikes, :user_id,
-      questions_attributes: Question.attribute_names.map(&:to_sym).push(:_destroy),
-      question_options_attributes: QuestionOption.attribute_names.map(&:to_sym).push(:_destroy))
+      :questions_attributes => [:id, :survey_id, :questionString, :multipleChoice, :multipleAnswer, :created_at, :updated_at, :_destroy,
+        :question_options_attributes => [:id, :question_id, :optionString, :correct, :created_at, :updated_at, :_destroy]]
+      )
     end
 end
