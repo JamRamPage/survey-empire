@@ -47,7 +47,7 @@
   </div>
 
   <br><br><br><br>
-
+  <h1> Questions </h1>
   <table class='table'>
     <thead>
       <tr>
@@ -57,15 +57,15 @@
         <th></th>
       <tr>
     </thead>
-    <tbody class="fields" frame='box'>
+    <tbody class="questions" frame='box'>
       <%= form.fields_for :questions do |questions_form| %>
-        <%= render 'question', form: questions_form %>
+        <%= render 'question_fields', f: questions_form %>
       <% end %>
     </tbody>
   </table>
 
   <div class="actions">
-    <%= link_to_add_row('Add Question', form, :questions, false, class: 'btn btn-primary') %><br>
+    <%= link_to_add_association 'Add Question', form, :questions %><br>
     <%= form.submit %>
   </div>
 <% end %>

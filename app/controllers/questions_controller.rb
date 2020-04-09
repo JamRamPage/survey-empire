@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = @survey.questions.build
+    @question = Question.new
   end
 
   # GET /questions/1/edit
@@ -76,7 +76,7 @@ class QuestionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def question_params
       params.require(:question).permit(:survey_id, :questionString, :multipleChoice, :multipleAnswer,
-        :question_options_attributes => [:id, :question_id, :optionString, :correct, :created_at, :updated_at, :_destroy]
+        :question_options_attributes => [:question_id, :optionString, :correct]
       )
     end
 end

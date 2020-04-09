@@ -1,0 +1,15 @@
+<tr class='nested-fields'>
+  <td>
+    <%= f.label :optionString %>
+    <%= f.text_field :optionString %>
+  </td>
+  <td>
+    <%= f.label :correct %>
+    <%= f.check_box :correct %>
+  </td>
+  <td>
+    <%#= form.hidden_field :_destroy %>
+    <%#= link_to 'Delete', '#', class: 'remove_record' %>
+    <%= link_to_remove_association "Remove Option", f %>
+  </td>
+</tr>
