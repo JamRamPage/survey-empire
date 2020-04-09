@@ -39,5 +39,6 @@
   <%= link_to 'Back', surveys_path %>
 <% else %>
 Enter form to answer survey
+<%= render 'answer_survey_form', survey: @survey %>
 <%= @survey.user_id %>
 <% end %>
