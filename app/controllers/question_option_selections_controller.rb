@@ -15,7 +15,7 @@ class QuestionOptionSelectionsController < ApplicationController
 
   # GET /question_option_selections/new
   def new
-    @question_option_selection = @question_answer.question_option_selection.build
+    @question_option_selection = @question_answer.question_option_selection.build(:question_answer_id => @question_answer, :question_option_id => optionSelection)
   end
 
   # GET /question_option_selections/1/edit

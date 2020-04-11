@@ -11,37 +11,33 @@
         </ul>
       </div>
     <% end %>
+    <% startTime = DateTime.now %>
 
     <h1><%= question.questionString %></h1>
 
     <div class="field">
-      <%= form.label :question_id %>
-      <%= form.text_field :question_id %>
+      <%= form.hidden_field :question_id, value: question.id %>
+      <%#= hidden_field_tag 'question_id', :question_id %>
     </div>
 
     <div class="field">
-      <%= form.label :survey_id %>
-      <%= form.text_field :survey_id %>
+      <%= form.hidden_field :survey_id, value: question.survey_id %>
+      <%#= hidden_field_tag 'survey_id', :survey_id %>
     </div>
 
     <div class="field">
-      <%= form.label :user_id %>
-      <%= form.text_field :user_id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%#= hidden_field_tag 'user_id', :user_id %>
     </div>
 
     <div class="field">
-      <%= form.label :givenAnswer %>
-      <%= form.text_field :givenAnswer %>
+      <%= form.hidden_field :timeStarted, value: startTime %>
+      <%#= hidden_field_tag 'timeStarted', startTime %>
     </div>
 
     <div class="field">
-      <%= form.label :timeStarted %>
-      <%= form.datetime_select :timeStarted %>
-    </div>
-
-    <div class="field">
-      <%= form.label :timeEnded %>
-      <%= form.datetime_select :timeEnded %>
+      <%= form.hidden_field :timeEnded %>
+      <%#= hidden_field_tag 'timeEnded' %>
     </div>
 
     <% if question.multipleChoice == true then %>
@@ -51,28 +47,26 @@
     <% if question.multipleChoice == true && question.multipleAnswer == true then %>
       <%# List question options as tick boxes - user can select any number %>
       <div class="field">
-        <% questionOptions.each do |option| %>
-          <%= check_box_tag(option.optionString, false) %>
+        <% for questionOption in questionOptions.each %>
+          <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id %>
+          <%= questionOption.optionString %>
         <% end %>
       </div>
     <% elsif question.multipleChoice == true then %>
       <%# List question options as radio buttons - user can select 1 %>
       <div class="field">
-        <% questionOptions.each do |option| %>
-          <%= radio_button_tag(option.optionString, false) %>
-        <% end %>
+        <%= form.collection_radio_buttons(:selectedOption, questionOptions, :id, :optionString) %>
       </div>
     <% else %>
       <%# Question is single-answer, don't display options, just display a text box instead %>
-      <%= form.label :givenAnswer %>
-      <%= form.text_field :givenAnswer %>
+      <div class="field">
+        <%= form.label :givenAnswer %>
+        <%= form.text_field :givenAnswer %>
+      <div class="field">
     <% end %>
 
     <div class="actions">
       <%= form.submit %>
     </div>
-  </div>
-  <div class="actions">
-    <%= form.submit 'Answer Survey' %>
   </div>
 <% end %>

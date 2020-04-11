@@ -25,11 +25,27 @@
     <%= @survey.dislikes %>
   </p>
 
+  Here we should display the survey results and data analytics
+  To start with, and for testing purposes, I'll make the program list all
+  QuestionAnswer objects relating to all questions in the survey
   <h2>Questions</h2>
   <% for question in @survey.questions %>
     <ul>
       <li><%= question.questionString %>
       <%= link_to 'Show Question', survey_question_path(@survey, question) %>
+      <% for questionAnswer in question.question_answers %>
+        User id is:
+        <% questionAnswer.user_id %>
+        ,
+        <% if question.multipleChoice == true && question.multipleAnswer == true then %>
+          <%# go through each of the selections that the user did %>
+        <% elsif question.multipleChoice == true %>
+          <%# print out the selection that the user selected %>
+        <% else %>
+          <%# print out questionAnswer.givenAnswer %>
+          <%= questionAnswer.givenAnswer %>
+        <% end %>
+      <% end %>
       </li>
     </ul>
   <% end %>
@@ -37,8 +53,9 @@
   <%= link_to 'Edit', edit_survey_path(@survey) %> |
   <%= link_to 'Add Question', survey_questions_path(@survey) %> |
   <%= link_to 'Back', surveys_path %>
+
 <% else %>
-Enter form to answer survey
-<%= render 'answer_survey_form', survey: @survey %>
-<%= @survey.user_id %>
+  Enter form to answer survey
+  <%= render 'answer_survey_form', survey: @survey %>
+  <%= @survey.user_id %>
 <% end %>
