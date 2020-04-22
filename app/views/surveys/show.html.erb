@@ -6,11 +6,6 @@
   </p>
 
   <p>
-    <strong>Creationdate:</strong>
-    <%= @survey.creationDate %>
-  </p>
-
-  <p>
     <strong>Expirydate:</strong>
     <%= @survey.expiryDate %>
   </p>
@@ -33,19 +28,44 @@
     <ul>
       <li><%= question.questionString %>
       <%= link_to 'Show Question', survey_question_path(@survey, question) %>
-      <% for questionAnswer in question.question_answers %>
-        User id is:
-        <% questionAnswer.user_id %>
-        ,
-        <% if question.multipleChoice == true && question.multipleAnswer == true then %>
-          <%# go through each of the selections that the user did %>
-        <% elsif question.multipleChoice == true %>
-          <%# print out the selection that the user selected %>
-        <% else %>
-          <%# print out questionAnswer.givenAnswer %>
-          <%= questionAnswer.givenAnswer %>
+        <ul>
+        <% for questionAnswer in question.question_answers %>
+          <li>
+            <% if question.multipleChoice == true then %>
+              <%# go through each of the selections that the user did %>
+              <%# (might only be one option) %>
+              User id is:
+              <%= questionAnswer.user_id %>
+              <% if question.multipleAnswer == true then %>
+                . They selected these options:
+              <% else %>
+                <%# multiple choice, but the user only selected one option :) %>
+                . They selected THIS option:
+              <% end %>
+              <ul>
+                <% for selection in questionAnswer.question_option_selections %>
+                  <li>
+                    <%= selection.text %>
+                    <% if selection.correct == true then %>
+                      &#10004;
+                    <% else %>
+                      &#10060;
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <%# print out questionAnswer.givenAnswer %>
+              <%= questionAnswer.givenAnswer %>
+              , User id is:
+              <%= questionAnswer.user_id %>
+            <% end %>
+            Time taken was:
+            <%= (questionAnswer.created_at - questionAnswer.timeStarted) %>
+            Seconds.
+          </li>
         <% end %>
-      <% end %>
+        </ul>
       </li>
     </ul>
   <% end %>
