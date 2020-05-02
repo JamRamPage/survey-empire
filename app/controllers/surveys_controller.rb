@@ -1,6 +1,25 @@
 class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
 
+  def surveyReact
+    survey_id = params['survey']
+    survey = Survey.where(:id => survey_id).first
+    puts params['like']
+    if params['like'] == "true" then
+      puts 'liking'
+      puts survey
+      puts survey.id
+      survey.likes = survey.likes + 1
+    else
+      puts 'disliking'
+      puts survey
+      puts survey.id
+      puts survey.survey_name
+      survey.dislikes = survey.dislikes + 1
+    end
+    survey.save
+  end
+
   # GET /surveys
   # GET /surveys.json
   def index

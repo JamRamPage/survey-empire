@@ -7,6 +7,7 @@ Rails.application.routes.draw do
        resources :question_options
      end
   end
+  post 'surveys/:id', to: 'surveys#surveyReact'
   root 'home#home'
   get 'home/contact'
   get 'home/stream_test'

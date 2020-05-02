@@ -7,6 +7,8 @@ the time taken to answer each one? %>
 <% questions.each do |question| %>
   <%= render 'answer_question_form', question_answer: QuestionAnswer.new, question: question %>
 <% end %>
+<%= button_to 'Like', :params => {like: true, survey: @survey} %>
+<%= button_to 'Dislike', :params => {like: false, survey: @survey} %>
 <div class="actions">
   <%= link_to 'Submit Answers', survey_path(@survey) + '?answered=true' %>
 </div>
