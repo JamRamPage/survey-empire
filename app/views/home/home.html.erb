@@ -1,3 +1,4 @@
+
 <h1>Home#home</h1>
 <p>Find me in app/views/home/home.html.erb</p>
 <p>The home page for SurveyEmpire. Here you should be able to log in, and then
@@ -10,3 +11,4 @@ navigate to pages for survey creation, and survey searching</p>
   <%= link_to 'Login', new_user_session_path %>
 <% end %>
 <%= link_to 'Search for Surveys', surveys_path + '?drafts=false'%></br>
+<%= link_to 'Stream test', home_stream_test_path %>

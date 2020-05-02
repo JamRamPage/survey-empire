@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   root 'home#home'
   get 'home/contact'
+  get 'home/stream_test'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

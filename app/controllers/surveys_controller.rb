@@ -18,6 +18,8 @@ class SurveysController < ApplicationController
   def show
     if params['answered'] == 'true' or params['belongsToUser'] == 'true' then
       puts 'showing survey'
+      @questions = @survey.questions
+      render stream: true
     else
       puts 'showing form to answer survey'
     end
