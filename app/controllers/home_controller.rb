@@ -8,11 +8,9 @@ class HomeController < ApplicationController
   end
 
   def stream_test
-    render stream: true
-    10.times {
-        response.stream.write "I should get streamed ERB..."
-        sleep 0.1
-    }
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new response.stream , retry: 3000, event: "stream_test"
+    sse.write({ value: 100 * rand})
   ensure
     response.stream.close
   end

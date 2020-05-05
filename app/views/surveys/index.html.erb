@@ -26,16 +26,8 @@ Showing all surveys
         <td><%= survey.expiryDate %></td>
         <td><%= survey.likes %></td>
         <td><%= survey.dislikes %></td>
-        <% if survey.user_id == current_user.id then%>
-          <%# they created the survey %>
-          <td><%= link_to 'Show', survey_path(survey) + '?belongsToUser=true' %></td>
-        <% elsif QuestionAnswer.where(:user_id => current_user).where(:survey_id => survey).select("COUNT(*)").size > 0 %>
-          <%# they have answered the survey %>
-          <td><%= link_to 'Show', survey_path(survey) + '?answered=true' %></td>
-        <% else %>
-          <%# they have not answered the survey %>
-          <td><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
-        <% end %>
+        <td><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true' %></td>
+        <td><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
         <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
         <td><%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -44,5 +36,4 @@ Showing all surveys
 </table>
 
 <br>
-<%= link_to 'Stream Test', 'home/stream_test' %>
 <%= link_to 'New Survey', new_survey_path %>

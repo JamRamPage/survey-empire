@@ -1,0 +1,43 @@
+$(document).ready(function() {
+	var eventSource = new EventSource(
+  "<%= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %>");
+	$(eventSource).bind("updateTables", function(event) {
+		var data = $.parseJSON(event.originalEvent.data);
+		$('#dumptest').html(data.questionTitle1);
+    $('#tableOfQuestions').text('');
+    var qId;
+    for (qId = 1; qId <= data.numberOfQuestions; qId++) {
+      var questionStatistics = "<table><thead><tr>";
+      // now put in the different options for that question (as the table/bar chart headings)
+      var answerId;
+      var text = "listOfAnswers";
+      text += qId;
+      var answerList = data[text];
+      // for each answer in that question
+      for (answerId = 0; answerId < answerList.length; answerId++) {
+        questionStatistics += ("<td>" + answerList[answerId] + "</td>");
+      }
+      questionStatistics += "</tr></thead><tbody><tr>";
+      // Now we've got the table headings (the list of answers)
+      // we should get the table body (the list of answers_count and answers_percentages)
+      text = "countOfAnswers";
+      text += qId;
+      //for each answer, get the answer COUNT (how many people gave that answer)
+      answerList = data[text];
+      for (answerId = 0; answerId < answerList.length; answerId++) {
+        questionStatistics += ("<td>" + answerList[answerId] + "</td>");
+      }
+      questionStatistics += "</tr><tr>";
+      text = "percentageForAnswers";
+      text += qId;
+      // for each answer, get the answer PERCENTAGE
+      answerList = data[text];
+      for (answerId = 0; answerId < answerList.length; answerId++) {
+        questionStatistics += ("<td>" + answerList[answerId] + "</td>");
+      }
+      questionStatistics += "</tr></tbody></table>";
+      //for each question, append the table above to the table of questions
+      $('#tableOfQuestions').append(questionStatistics);
+    }
+	});
+});

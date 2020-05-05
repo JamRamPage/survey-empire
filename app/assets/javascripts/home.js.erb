@@ -1,0 +1,50 @@
+$(document).ready(function() {
+  var eventSource = new EventSource(
+  "<%= Rails.application.routes.url_helpers.home_stream_test_path %>");
+  $(eventSource).bind("stream_test", function(event) {
+    var data = $.parseJSON(event.originalEvent.data);
+    $('#streamed_data').html(data.value.toFixed(2));
+    function drawSort() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('number', 'Salary');
+      data.addColumn('boolean', 'Full Time');
+      data.addRows(5);
+      data.setCell(0, 0, 'John');
+      data.setCell(0, 1, Math.floor(Math.random() * Math.floor(50000)));
+      data.setCell(0, 2, true);
+      data.setCell(1, 0, 'Mary');
+      data.setCell(1, 1, Math.floor(Math.random() * Math.floor(50000)));
+      data.setCell(1, 2, true);
+      data.setCell(2, 0, 'Steve');
+      data.setCell(2, 1, Math.floor(Math.random() * Math.floor(50000)));
+      data.setCell(2, 2, false);
+      data.setCell(3, 0, 'Ellen');
+      data.setCell(3, 1, Math.floor(Math.random() * Math.floor(50000)));
+      data.setCell(3, 2, true);
+      data.setCell(4, 0, 'Mike');
+      data.setCell(4, 1, Math.floor(Math.random() * Math.floor(50000)));
+      data.setCell(4, 2, false);
+
+      var formatter = new google.visualization.NumberFormat({prefix: '$'});
+      formatter.format(data, 1); // Apply formatter to second column
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1]);
+
+      var table = new google.visualization.Table(document.getElementById('table_sort_div'));
+      table.draw(view, {width: '100%', height: '100%'});
+
+      var chart = new google.visualization.BarChart(document.getElementById('chart_sort_div'));
+      chart.draw(view);
+
+      google.visualization.events.addListener(table, 'sort', function(event) {
+        data.sort([{column: event.column, desc: !event.ascending}]);
+        chart.draw(view);
+      });
+    }
+    drawSort();
+
+
+  });
+});

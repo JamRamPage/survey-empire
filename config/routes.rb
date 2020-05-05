@@ -8,6 +8,8 @@ Rails.application.routes.draw do
      end
   end
   post 'surveys/:id', to: 'surveys#surveyReact'
+  get 'surveys/:id?analyse=true', to: 'surveys#survey_analytics'
+  get 'surveys/survey_analytics'
   root 'home#home'
   get 'home/contact'
   get 'home/stream_test'
