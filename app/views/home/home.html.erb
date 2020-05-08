@@ -7,6 +7,8 @@ navigate to pages for survey creation, and survey searching</p>
   <%= link_to 'My Surveys', surveys_path  + '?drafts=true'%>
   <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
 <% else %>
-  <%= link_to 'Login', new_user_session_path %>
+  <%= link_to 'Login', user_session_path %>
+
+
 <% end %>
 <%= link_to 'Search for Surveys', surveys_path + '?drafts=false'%></br>

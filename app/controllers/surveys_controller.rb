@@ -72,6 +72,10 @@ class SurveysController < ApplicationController
     end
   end
 
+  def share
+    @client.update("Check out this awesome survey: " + survey_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_survey

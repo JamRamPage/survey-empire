@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-<% if params['answered'] == 'true' or params['belongsToUser'] == 'true' then %>
+<%
+  
+  if params['answered'] == 'true' or params['belongsToUser'] == 'true' then %>
   <p>
     <strong>Name:</strong>
     <%= @survey.survey_name %>
@@ -53,6 +55,10 @@
   <%= link_to 'Edit', edit_survey_path(@survey) %> |
   <%= link_to 'Add Question', survey_questions_path(@survey) %> |
   <%= link_to 'Back', surveys_path %>
+
+  <p>
+  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </p>
 
 <% else %>
   Enter form to answer survey

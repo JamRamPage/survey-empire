@@ -10,9 +10,14 @@
   </head>
 
   <body>
+
     <div class="topnav">
       <%= link_to "HOME", root_path %>
     </div>
     <%= yield %>
+    <div>
+    <%= render "layouts/navigation" %>
+    </div>
+
   </body>
 </html>

@@ -63,3 +63,11 @@ gem 'cocoon'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+##############################################################################
+gem 'twitter'
+gem 'bootstrap-sass'
+gem 'omniauth-twitter'
+
+group :development, :test do
+  gem 'dotenv-rails'
+end
