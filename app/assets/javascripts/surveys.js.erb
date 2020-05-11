@@ -1,6 +1,11 @@
 $(document).ready(function() {
-	var eventSource = new EventSource(
-  "<%= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %>");
+	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.home_stream_test_path %>");
+	$(eventSource).bind("stream_test", function(event) {
+		var data = $.parseJSON(event.originalEvent.data);
+		$('#streamed_data').html(data.value.toFixed(2));
+	});
+	// works up to here!
+	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %>");
 	$(eventSource).bind("updateTables", function(event) {
 		var data = $.parseJSON(event.originalEvent.data);
 		$('#dumptest').html(data.questionTitle1);

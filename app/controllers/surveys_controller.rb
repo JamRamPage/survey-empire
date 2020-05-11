@@ -39,6 +39,9 @@ class SurveysController < ApplicationController
     if params['answered'] == 'true' or params['belongsToUser'] == 'true' or params['analyse'] == 'true' then
       @questions = @survey.questions
       puts 'showing survey'
+      #remove this to allow data streaming (though it won't stream yet :()
+      #with this, the relevant survey details are sent as JSON objects.
+      survey_analytics()
     else
       puts 'showing form to answer survey'
     end
@@ -51,6 +54,7 @@ class SurveysController < ApplicationController
 
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 3000, event: "updateTables")
+    sse.write({testVal: 100 * rand})
 
     qIndex = 1
     for question in @questions

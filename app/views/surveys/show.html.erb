@@ -22,8 +22,9 @@
 
   <%# template for tables for questions - there would obviously be an unknown number of questions and answers, so this <table>
     must be generated using javascript from the streamed data (FRONT END) %>
-  <span id="dumptest">questionTitle</span>
-  <span class="tableOfQuestions"></span>
+  <span id="streamed_data">questionTitle</span>
+  <span id="tableOfQuestions"></span><br>
+  <%#= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %><br>
 
   <%= link_to 'Edit', edit_survey_path(@survey) %> |
   <%= link_to 'Add Question', survey_questions_path(@survey) %> |

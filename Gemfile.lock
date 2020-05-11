@@ -61,6 +61,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    chartkick (3.3.1)
     childprocess (3.0.0)
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
@@ -107,7 +108,7 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
-    mimemagic (0.3.4)
+    mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
@@ -208,6 +209,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   capybara (>= 2.15)
+  chartkick
   chromedriver-helper
   cocoon
   coffee-rails (~> 4.2)

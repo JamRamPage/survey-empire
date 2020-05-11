@@ -59,7 +59,13 @@ end
 
 gem 'modernizr-rails'
 gem 'jquery-rails'
+
+#cocoon is used to provide an easy javascript method to nest forms for creating surveys
+#this allows us to create a survey WITH ALL ITS QUESTIONS on one page, not many pages.
 gem 'cocoon'
+
+#gem for printing out graphical data
+gem 'chartkick'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

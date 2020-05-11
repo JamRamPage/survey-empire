@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   end
   post 'surveys/:id', to: 'surveys#surveyReact'
   get 'surveys/:id?analyse=true', to: 'surveys#survey_analytics'
-  get 'surveys/survey_analytics'
+  #get 'surveys/survey_analytics'
   root 'home#home'
   get 'home/contact'
-  get 'home/stream_test'
   devise_for :users
+  #UNCOMMENT BELOW to stream the homepage
+  #get 'home/stream_test'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
