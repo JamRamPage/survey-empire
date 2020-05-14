@@ -13,3 +13,40 @@
  *= require_tree .
  *= require_self
  */
+
+ @import 'bootstrap';
+ @import 'styles';
+ @import 'Sidebar';
+ @import 'Sidebar-1';
+ @import 'font-awesome';
+
+#home_image {
+    width: 30%;
+    padding-top: 0px;
+    min-width: 200px;
+}
+
+#menu-toggle:hover {
+    background-color: transparent;
+}
+
+.link {
+    color: #fff;
+}
+
+.link:hover {
+    color: #fff;
+    background-color: transparent;
+}
+.link:focus {
+    color: #fff;
+    background-color: transparent;
+}
+.link:active {
+    color: #fff;
+    background-color: transparent;
+}
+.link:visited {
+    color: #fff;
+    background-color: transparent;
+}

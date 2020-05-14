@@ -52,9 +52,9 @@ class SurveysController < ApplicationController
     puts 'analysing survey'
     @questions = @survey.questions
 
-    response.headers['Content-Type'] = 'text/event-stream'
-    sse = SSE.new(response.stream, retry: 3000, event: "updateTables")
-    sse.write({testVal: 100 * rand})
+    # response.headers['Content-Type'] = 'text/event-stream'
+     sse = SSE.new(response.stream, retry: 3000, event: "updateTables")
+     sse.write({testVal: 100 * rand})
 
     qIndex = 1
     for question in @questions
@@ -187,7 +187,7 @@ class SurveysController < ApplicationController
   def destroy
     @survey.destroy
     respond_to do |format|
-      format.html { redirect_to surveys_url, notice: 'Survey was successfully destroyed.' }
+      format.html { redirect_to surveys_url(drafts:true), notice: 'Survey was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

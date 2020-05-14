@@ -17,7 +17,10 @@
 //= require cocoon
 //= require Chart.bundle
 //= require chartkick
+//= require bootstrap
+//= require Sidebar
 //= require_tree .
+
 $(document).on('turbolinks:load', function() {
 
     $('form').on('click', '.remove_record', function(event) {

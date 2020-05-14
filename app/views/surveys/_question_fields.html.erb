@@ -1,10 +1,6 @@
 <table frame='box' class='nested-fields'>
 <tr>
   <td>
-    <%= f.label :questionString %>
-    <%= f.text_field :questionString %>
-  </td>
-  <td>
     <%= f.label :multipleChoice %>
     <%= f.check_box :multipleChoice %>
   </td>
@@ -18,25 +14,33 @@
     <%#= link_to 'Delete', '#', class: 'remove_record' %>
   </td>
 </tr>
-  <table class='question_options'>
-    <thead>
-      <tr>
-        <th>Option String</th>
-        <th>Correct?</th>
-        <th></th>
-      <tr>
-    </thead>
-    <tr>
-      <td>
-        <%= link_to_add_association 'Add Option', f, :question_options %><br>
-      </td>
-      </tr>
-      <tr>
-      <td>
+</table>
+
+<div class="row nested-fields" style="margin-left: 8%;margin-right: 5%;">
+  <div class="col d-inline-block">
+    <div class="row">
+      <div class="col col-md-1" style="max-width: 40px;margin-right: 20px;">
+        <%= link_to_remove_association "×", f,{class:"btn btn-primary", style: "color: #ffffff;font-size: 20px;border-color: transparent;padding-top: 0px;padding-bottom: 6px;background-color: #df7c59;box-shadow: 0 0 0 0 transparent;"}%>
+        <%#= form.hidden_field :_destroy %>
+        <%#= link_to 'Delete', '#', class: 'remove_record' %>
+      </div>
+      <div class="col d-inline-block">
+        <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;">
+          <%= f.text_field :questionString , class:"border rounded d-inline", placeholder:"Question?", style:"width: 80%;height: 40px;padding-left: 5px;min-width: 162px;"%>
+        </div>
+      </div>
+    </div>
+    
+    <div class='row nested-fields'>
+      <div class='col'>
+        <div style="height: 10px;"></div>
         <%= f.fields_for :question_options do |question_options_form| %>
           <%= render 'question_option_fields', f: question_options_form %>
         <% end %>
-      </td>
-    </tr>
-  </table>
-</table>
+        <div style="height: 20px;"></div>
+        <%= link_to_add_association 'Add Option', f, :question_options,data: {association_insertion_method: "prepend"}, class:"btn btn-primary d-inline", style:"background-color: #d55122;color: white;padding-top: 3px;padding-bottom: 6px;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
+        <div style="height: 20px;"></div>
+      </div>
+    </div>
+  </div>
+</div>

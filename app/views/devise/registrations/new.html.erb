@@ -1,0 +1,45 @@
+<div class="page-content-wrapper" style="height: 100vh;min-width: 400px;">
+            <div class="container-fluid" style="height: 100%;">
+                <div class="row" style="background-color: #a3a3a3;">
+                    <div class="col col-md-1" style="max-width: 60px;"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #d55122;"></i></a></div>
+                    <div class="col text-center d-inline-block">
+                        <h1 class="d-inline" style="color: #d55122;margin-bottom: 0;">Sign Up</h1><%= image_tag ("SurveyEmpireLogo2.png"), class: 'd-inline float-right', style: "width: 50px;"%>
+                        <div style="height: 40px;"></div>
+                    </div>
+                </div>
+                <div class="row" style="min-height: calc(100% - 88px);">
+                    <div class="col d-inline-block" style="background-image: url(<%= asset_path 'background_6.jpg' %>);">
+                        <div class="text-center" style="padding: 10px 10px;background-color: #df7c59;margin-top: 5%;min-width: 285px;max-width: 450px;margin-right: auto;margin-left: auto;margin-bottom: 20px;">
+                          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                            <%= render "devise/shared/error_messages", resource: resource %>
+                          
+                            <div class="field">
+                              <%= f.email_field :email, autofocus: true, placeholder:"Email", autocomplete: "email", class:"border rounded shadow-sm d-inline", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent;background-color: #fff;color: #fff;" %>
+                            </div>
+                          
+                            <div class="field">
+                              <div class="text-left">
+                              <% if @minimum_password_length %>
+                              <em style='color:#fff;'>(<%= @minimum_password_length %> characters minimum)</em>
+                              <% end %><br />
+                              </div>
+                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent;background-color: #fff;color: #fff;" %>
+                            </div>
+                          
+                            <div class="field">
+                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Confirm Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent;background-color: #fff;color: #fff;" %>
+                            </div>
+                          
+                            <div class="actions text-left">
+                              <%= f.submit "Sign up", class:"btn btn-primary" ,style: "background-color: #d55122;border-color: #d55122;width: 100%;height: 50px;box-shadow: 0 0 0 0 transparent;"  %>
+                            </div>
+                          <% end %>
+                          <div class="text-right">
+                          <%= render "devise/shared/links" %>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

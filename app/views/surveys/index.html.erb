@@ -1,39 +1,125 @@
-<p id="notice"><%= notice %></p>
 <% if params['drafts'] == 'true' then %>
-Showing Surveys that the Current User has made
+<div class="page-content-wrapper" style="height: 100vh;min-width: 400px;">
+<div class="container-fluid" style="height: 100%;">
+    <div class="row" style="background-color: #a3a3a3;">
+        <div class="col col-md-1" style="max-width: 60px;"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #d55122;"></i></a></div>
+        <div class="col text-center d-inline-block">
+            <h1 class="d-inline" style="color: #d55122;margin-bottom: 0;">My Surveys</h1>
+            <%= image_tag ("SurveyEmpireLogo2.png"), class: "d-inline float-right", style: 'width:50px' %>
+            <div style="height: 40px;"></div>
+        </div>
+    </div>
+    <div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
+        <div class="col">
+            <div class="table-responsive" style="background-color: #df7c59;color: #fff;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="color: #fff;">Survey Title</th>
+                            <th class="text-center" style="color: #fff;">Public?</th>
+                            <th class="text-center" style="color: #fff;">Date Created</th>
+                            <th class="text-center" style="color: #fff;">Expiry Date</th>
+                            <th class="text-center" style="color: #fff;">Questions</th>
+                            <th class="text-center" style="color: #fff;">Likes</th>
+                            <th class="text-center" style="color: #fff;">Dislikes</th>
+                            <th class="text-center" style="color: #fff;">Analysis</th>
+                            <th class="text-center" style="color: #fff;">Answer Survey</th>
+                            <th class="text-center" style="color: #fff;">Edit</th>
+                            <th class="text-center" style="color: #fff;">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <% @surveys.each do |survey| %>
+                            <tr>
+                              <td class="text-center" style="color: #fff;"><%= survey.survey_name%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.public%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.creationDate%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.expiryDate%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.questions.size%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.likes%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.dislikes%></td>
+                              <td class="text-center" style="color: #fff;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true' %></td>
+                              <td class="text-center" style="color: #fff;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
+                              <td class="text-center" style="color: #fff;"><%= link_to 'Edit', edit_survey_path(survey) %></td>
+                              <td class="text-center" style="color: #fff;"><%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                          <% end %>
+                        </tr>  
+                    </tbody>
+                </table>
+            </div>
+            <div style="padding: 0px;margin-top: 10px;">
+                <div class="row">
+                    <div class="col">
+                      <%= link_to 'Create New Survey', new_survey_path, class:"btn btn-primary Load", style: "box-shadow: 0 0 0 0 transparent;width: 100%;background-color: #d55122;border-color: #d55122;margin-bottom: 20px;"%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 <% else %>
-Showing all surveys
+<div class="page-content-wrapper" style="height: 100vh;min-width: 400px;">
+<div class="container-fluid" style="height: 100%;">
+    <div class="row" style="background-color: #a3a3a3;">
+        <div class="col col-md-1" style="max-width: 60px;"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #d55122;"></i></a></div>
+        <div class="col text-center d-inline-block">
+            <h1 class="d-inline" style="color: #d55122;margin-bottom: 0;">Survey Search</h1>
+            <%= image_tag ("SurveyEmpireLogo2.png"), class: "d-inline float-right", style: 'width:50px' %>
+            <div style="height: 40px;"></div>
+        </div>
+    </div>
+    <div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
+        <div class="col">
+            <div class="row">
+                <div class="col d-inline-block">
+                    <div style="padding: 10px 10px;background-color: #df7c59;min-width: 331px;"><input class="border rounded shadow-sm d-inline" type="text" placeholder="Survey Name" style="width: 100%;height: 40px;padding-left: 5px;max-width: 400px;" required="">
+                        <p class="d-inline" style="width: 10%;height: 100%;color: #fff;">&nbsp;order results by&nbsp;</p><select class="border rounded" style="height: 30px;" readonly=""><option value="11" selected="">Popularity</option><option value="12">Rating</option></select><select class="border rounded"
+                            style="height: 30px;margin-left: 2px;" readonly=""><option value="11" selected="">Ascending</option><option value="12">Descending</option></select>
+                    </div>
+                    <div style="height: 20px;"></div>
+                </div>
+                <div class="col col-md-1" style="max-width: 100px;"><button class="btn btn-primary" type="button" style="background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;margin-bottom: 20px;width: 80px;">Search</button></div>
+            </div>
+            <div class="table-responsive" style="background-color: #df7c59;color: #fff;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="color: #fff;">Survey Title</th>
+                            <th class="text-center" style="color: #fff;">Date Created</th>
+                            <th class="text-center" style="color: #fff;">Expiry Date</th>
+                            <th class="text-center" style="color: #fff;">Questions</th>
+                            <th class="text-center" style="color: #fff;">Likes</th>
+                            <th class="text-center" style="color: #fff;">Dislikes</th>
+                            <th class="text-center" style="color: #fff;">Analysis</th>
+                            <th class="text-center" style="color: #fff;">Answer Survey</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <% @surveys.each do |survey| %>
+                            <tr>
+                              <td class="text-center" style="color: #fff;"><%= survey.survey_name%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.creationDate%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.expiryDate%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.questions.size%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.likes%></td>
+                              <td class="text-center" style="color: #fff;"><%= survey.dislikes%></td>
+                              <td class="text-center" style="color: #fff;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true' %></td>
+                              <td class="text-center" style="color: #fff;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
+                          <% end %>
+                        </tr>  
+                    </tbody>
+                </table>
+            </div>
+            <div style="padding: 0px;margin-top: 10px;">
+                <div class="row">
+                    <div class="col"><button class="btn btn-primary Load" type="button" style="width: 100%;background-color: #d55122;border-color: #d55122;margin-bottom: 20px;">Load More</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 <% end %>
-<h1>Surveys</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Creationdate</th>
-      <th>Expirydate</th>
-      <th>Likes</th>
-      <th>Dislikes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @surveys.each do |survey| %>
-      <tr>
-        <td><%= survey.survey_name %></td>
-        <td><%= survey.creationDate %></td>
-        <td><%= survey.expiryDate %></td>
-        <td><%= survey.likes %></td>
-        <td><%= survey.dislikes %></td>
-        <td><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true' %></td>
-        <td><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
-        <td><%= link_to 'Edit', edit_survey_path(survey) %></td>
-        <td><%= link_to 'Destroy', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-<%= link_to 'New Survey', new_survey_path %>

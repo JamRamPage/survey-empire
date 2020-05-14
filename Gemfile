@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.5.8'
 
 # Devise gem to verify users that can create surveys
 gem 'devise'
@@ -66,6 +66,12 @@ gem 'cocoon'
 
 #gem for printing out graphical data
 gem 'chartkick'
+
+#gem for responsive design
+gem 'bootstrap'
+
+#gem for fonts
+gem 'font-awesome-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

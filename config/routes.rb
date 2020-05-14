@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   #get 'surveys/survey_analytics'
   root 'home#home'
   get 'home/contact'
+  get 'home/about'
   devise_for :users
   #UNCOMMENT BELOW to stream the homepage
-  #get 'home/stream_test'
+  get 'home/stream_test'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
