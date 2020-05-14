@@ -1,48 +1,87 @@
-$(document).ready(function() {
-	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.home_stream_test_path %>");
+$(document).ready(function() { // call in the right document???
+
+	function LoadGoogle(answerList, countList, percList){
+		google.charts.load('current', {
+			callback: drawChart,
+			packages:['corechart']
+		});
+
+		function drawChart() {
+			//Draw a chart for a given question
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Option');
+			data.addColumn('number', 'Number of people');
+			// loop through answers and [a, countnum]
+			var questionStatistics = "[";
+			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
+				questionStatistics += ("[" + answerList[answerId] + ', ' + countList[answerId] + "]");
+			}
+			questionStatistics += "]";
+			data.addRows(questionStatistics);
+
+			var options = {'title':'How Much Pizza I Ate Last Night',
+										 'width':400,
+										 'height':300};
+
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, options);
+		}
+	}
+	var eventSource = new EventSource("<%#= Rails.application.routes.url_helpers.home_stream_test_path %>");
 	$(eventSource).bind("stream_test", function(event) {
 		var data = $.parseJSON(event.originalEvent.data);
 		$('#streamed_data').html(data.value.toFixed(2));
 	});
 	// works up to here!
-	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %>");
+	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.survey_analysis_analyse_survey_path %>");
 	$(eventSource).bind("updateTables", function(event) {
 		var data = $.parseJSON(event.originalEvent.data);
-		$('#dumptest').html(data.questionTitle1);
-    $('#tableOfQuestions').text('');
-    var qId;
+		var numberOfQuestions = data.numberOfQuestions;
+		
+
+		$('#dumptest').html(data.questionTitle);
+		$('#dumptest').append(data.totalAnswers);
+		$('#dumptest').append(data.numberOfQuestions);
+
+		var qId;
     for (qId = 1; qId <= data.numberOfQuestions; qId++) {
-      var questionStatistics = "<table><thead><tr>";
-      // now put in the different options for that question (as the table/bar chart headings)
-      var answerId;
-      var text = "listOfAnswers";
-      text += qId;
-      var answerList = data[text];
-      // for each answer in that question
-      for (answerId = 0; answerId < answerList.length; answerId++) {
-        questionStatistics += ("<td>" + answerList[answerId] + "</td>");
-      }
-      questionStatistics += "</tr></thead><tbody><tr>";
-      // Now we've got the table headings (the list of answers)
-      // we should get the table body (the list of answers_count and answers_percentages)
-      text = "countOfAnswers";
-      text += qId;
-      //for each answer, get the answer COUNT (how many people gave that answer)
-      answerList = data[text];
-      for (answerId = 0; answerId < answerList.length; answerId++) {
-        questionStatistics += ("<td>" + answerList[answerId] + "</td>");
-      }
-      questionStatistics += "</tr><tr>";
-      text = "percentageForAnswers";
-      text += qId;
-      // for each answer, get the answer PERCENTAGE
-      answerList = data[text];
-      for (answerId = 0; answerId < answerList.length; answerId++) {
-        questionStatistics += ("<td>" + answerList[answerId] + "</td>");
-      }
-      questionStatistics += "</tr></tbody></table>";
-      //for each question, append the table above to the table of questions
-      $('#tableOfQuestions').append(questionStatistics);
-    }
+			$('#tableOfQuestions').html(data.numberOfQuestions);
+			var questionStatistics = "<table><thead><tr>";
+			var text = "listOfAnswers";
+			text += qId;
+			var answerList = data[text];
+			text = "countOfAnswers";
+			text += qId;
+			var countList = data[text];
+			text = "percentageForAnswers";
+			text += qId;
+			var percList = data[text];
+
+			//Now we've loaded the appropriate data, we'll display it in a graph
+			LoadGoogle(answerList, countList, percList);
+
+			// After this draws tables
+/*
+			// for each answer in that question
+			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
+				questionStatistics += ("<td><strong>" + answerList[answerId] + "</strong></td>");
+			}
+			questionStatistics += "</tr></thead></strong><tbody><tr>";
+			$('#tableOfQuestions').html(questionStatistics);
+			// the number of people who selected each answer
+			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
+				questionStatistics += ("<td>" + answerList[answerId] + "</td>");
+			}
+			questionStatistics += "</tr><tr>";
+			console.log(questionStatistics);
+
+			// the percentage of people who selected each answer
+			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
+				questionStatistics += ("<td>" + answerList[answerId] + "</td>");
+			}
+			questionStatistics += "</tr></tbody></table>";
+			console.log(questionStatistics);
+*/
+		}
 	});
 });

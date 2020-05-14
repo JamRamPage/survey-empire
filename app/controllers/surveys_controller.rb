@@ -41,7 +41,7 @@ class SurveysController < ApplicationController
       puts 'showing survey'
       #remove this to allow data streaming (though it won't stream yet :()
       #with this, the relevant survey details are sent as JSON objects.
-      survey_analytics()
+      #survey_analytics()
     else
       puts 'showing form to answer survey'
     end

@@ -33,7 +33,6 @@ $(document).ready(function() {
   $(eventSource).bind("stream_test", function(event) {
     var data = $.parseJSON(event.originalEvent.data);
     var x = Math.round(data.value.toFixed(2));
-    console.log(x);
     $('#streamed_data').html(x);
 
     LoadGoogle(Math.round(x));
