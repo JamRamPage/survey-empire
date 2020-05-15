@@ -10,7 +10,8 @@ class SurveyAnalysisController < ApplicationController
 
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 10000, event: "updateTables")
-    sse.write({testVal: 100 * rand})
+    surveyData = {"numberOfQuestions".to_sym => @questions.size}
+
     qIndex = 1
     for question in @questions
       totalAnswers = question.question_answers.size
@@ -83,11 +84,18 @@ class SurveyAnalysisController < ApplicationController
       end
       #now we'll write the question details to the stream
 
-      sse.write({'id'.to_sym => question.questionString , 'totalAnswers'.to_sym => question.question_answers.size, 'multipleChoice'.to_sym => question.multipleChoice, 'multipleAnswer'.to_sym => question.multipleAnswer, 'listOfAnswers'.to_sym => listOfAnswers, 'countOfAnswers'.to_sym => countOfAnswers, 'percentageForAnswers'.to_sym => percentageForAnswers   } )
-
+      #sse.write({'id'.to_sym => question.questionString , 'totalAnswers'.to_sym => question.question_answers.size, 'multipleChoice'.to_sym => question.multipleChoice, 'multipleAnswer'.to_sym => question.multipleAnswer, 'listOfAnswers'.to_sym => listOfAnswers, 'countOfAnswers'.to_sym => countOfAnswers, 'percentageForAnswers'.to_sym => percentageForAnswers   } )
+      surveyData = surveyData.merge({"questionTitle#{qIndex}".to_sym => question.questionString})
+      surveyData = surveyData.merge({"totalAnswers#{qIndex}".to_sym => question.question_answers.size})
+      surveyData = surveyData.merge({"multipleChoice#{qIndex}".to_sym => question.multipleChoice})
+      surveyData = surveyData.merge({"multipleAnswer#{qIndex}".to_sym => question.multipleAnswer})
+      surveyData = surveyData.merge({"listOfAnswers#{qIndex}".to_sym => listOfAnswers})
+      surveyData = surveyData.merge({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
+      surveyData = surveyData.merge({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
       qIndex = qIndex + 1
     end
-    sse.write({"numberOfQuestions".to_sym => @questions.size})
+    #sse.write({"numberOfQuestions".to_sym => @questions.size})
+    sse.write(surveyData)
   ensure
     response.stream.close
   end

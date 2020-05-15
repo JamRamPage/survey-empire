@@ -55,6 +55,7 @@ class SurveysController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 3000, event: "updateTables")
     sse.write({testVal: 100 * rand})
+    surveyData = {"numberOfQuestions".to_sym => @questions.size}
 
     qIndex = 1
     for question in @questions
@@ -128,17 +129,19 @@ class SurveysController < ApplicationController
       end
       #now we'll write the question details to the stream
 
-      sse.write({"questionTitle#{qIndex}".to_sym => question.questionString})
-      sse.write({"totalAnswers#{qIndex}".to_sym => question.question_answers.size})
-      sse.write({"multipleChoice#{qIndex}".to_sym => question.multipleChoice})
-      sse.write({"multipleAnswer#{qIndex}".to_sym => question.multipleAnswer})
-      sse.write({"listOfAnswers#{qIndex}".to_sym => listOfAnswers})
-      sse.write({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
-      sse.write({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
-
+      surveyData = surveyData.merge({"questionTitle#{qIndex}".to_sym => question.questionString})
+      surveyData = surveyData.merge({"totalAnswers#{qIndex}".to_sym => question.question_answers.size})
+      surveyData = surveyData.merge({"multipleChoice#{qIndex}".to_sym => question.multipleChoice})
+      surveyData = surveyData.merge({"multipleAnswer#{qIndex}".to_sym => question.multipleAnswer})
+      surveyData = surveyData.merge({"listOfAnswers#{qIndex}".to_sym => listOfAnswers})
+      surveyData = surveyData.merge({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
+      surveyData = surveyData.merge({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
+      puts "HELLO THERE"
+      puts surveyData
       qIndex = qIndex + 1
     end
-    sse.write({"numberOfQuestions".to_sym => @questions.size})
+    puts surveyData
+    sse.write(surveyData)
   ensure
     response.stream.close
   end
