@@ -1,6 +1,19 @@
 class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   include ActionController::Live
+
+  def record_not_found
+    redirect_to root_path, :flash => { :error => "Record not found." }
+  end
+
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      redirect_to new_user_session_path
+    end
+  end
 
   def surveyReact
     survey_id = params['survey']
@@ -50,11 +63,12 @@ class SurveysController < ApplicationController
   # GET /surveys/1/survey_analytics
   def survey_analytics
     puts 'analysing survey'
+    puts @survey = Survey.find(12)
+    puts request.original_url
     @questions = @survey.questions
 
     response.headers['Content-Type'] = 'text/event-stream'
-    sse = SSE.new(response.stream, retry: 3000, event: "updateTables")
-    sse.write({testVal: 100 * rand})
+    sse = SSE.new(response.stream, retry: 10000, event: "updateTables")
     surveyData = {"numberOfQuestions".to_sym => @questions.size}
 
     qIndex = 1
@@ -78,7 +92,6 @@ class SurveysController < ApplicationController
         for option in question.question_options
           listOfAnswers.push(option.optionString)
           countOfAnswers.push(0)
-          puts countOfAnswers
         end
         for questionAnswer in question.question_answers
           timeTaken = questionAnswer.created_at - questionAnswer.timeStarted
@@ -129,6 +142,7 @@ class SurveysController < ApplicationController
       end
       #now we'll write the question details to the stream
 
+      #sse.write({'id'.to_sym => question.questionString , 'totalAnswers'.to_sym => question.question_answers.size, 'multipleChoice'.to_sym => question.multipleChoice, 'multipleAnswer'.to_sym => question.multipleAnswer, 'listOfAnswers'.to_sym => listOfAnswers, 'countOfAnswers'.to_sym => countOfAnswers, 'percentageForAnswers'.to_sym => percentageForAnswers   } )
       surveyData = surveyData.merge({"questionTitle#{qIndex}".to_sym => question.questionString})
       surveyData = surveyData.merge({"totalAnswers#{qIndex}".to_sym => question.question_answers.size})
       surveyData = surveyData.merge({"multipleChoice#{qIndex}".to_sym => question.multipleChoice})
@@ -136,11 +150,9 @@ class SurveysController < ApplicationController
       surveyData = surveyData.merge({"listOfAnswers#{qIndex}".to_sym => listOfAnswers})
       surveyData = surveyData.merge({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
       surveyData = surveyData.merge({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
-      puts "HELLO THERE"
-      puts surveyData
       qIndex = qIndex + 1
     end
-    puts surveyData
+    #sse.write({"numberOfQuestions".to_sym => @questions.size})
     sse.write(surveyData)
   ensure
     response.stream.close

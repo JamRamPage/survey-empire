@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
 <% if params['answered'] == 'true' or params['belongsToUser'] == 'true' or params['analyse'] == 'true' then %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
   <p>
     <strong>Name:</strong>
     <%= @survey.survey_name %>
@@ -25,8 +24,7 @@
 
   <%# template for tables for questions - there would obviously be an unknown number of questions and answers, so this <table>
     must be generated using javascript from the streamed data (FRONT END) %>
-  <span id="streamed_data">data</span><br>
-  <strong><span id="dumptest"></span></strong><br>
+  <span id="streamed_data">questionTitle</span>
   <span id="tableOfQuestions"></span><br>
   <%#= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %><br>
 
@@ -35,7 +33,16 @@
   <%= link_to 'Back', surveys_path %>
 
 <% else %>
-  Enter form to answer survey
-  <%= render 'answer_survey_form', survey: @survey %>
-  <%= @survey.user_id %>
+  <div class="page-content-wrapper" style="height: 100vh;overflow-x: auto;min-width: 360px;">
+    <div class="container-fluid" style="height: 100%;">
+      <div class="row" style="background-color: #a3a3a3;">
+          <div class="col col-md-1" style="background-color: #a3a3a3;max-width: 60px;"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #d55122;"></i></a></div>
+          <div class="col text-center d-inline-block" style="background-color: #a3a3a3;">
+              <h1 class="text-nowrap d-inline" style="color: #d55122;margin-bottom: 0;"><%= @survey.survey_name %></h1><%= image_tag ("SurveyEmpireLogo2.png"), class: 'd-inline float-right', style: "width: 50px;"%>
+              <div style="height: 40px;"></div>
+          </div>
+      </div>
+      <%= render 'answer_survey_form', survey: @survey %>
+    </div>
+  </div>
 <% end %>

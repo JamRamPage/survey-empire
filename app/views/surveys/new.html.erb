@@ -1,5 +1,11 @@
-<h1>New Survey</h1>
+<div class="page-content-wrapper" style="height: 100vh;min-width: 450px;">
+  <div class="container-fluid" style="height: 100%;">
+    <div class="row" style="background-color: #a3a3a3;">
+      <div class="col col-md-1" style="background-color: #a3a3a3;max-width: 60px;"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #d55122;"></i></a></div>
+      <div class="col text-center d-inline-block" style="background-color: #a3a3a3;">
+        <h1 class="text-nowrap d-inline" id="title-page" style="color: #d55122;margin-bottom: 0;">Survey Creator</h1><%= image_tag ("SurveyEmpireLogo2.png"), class: "d-inline float-right", style: 'width:50px' %>
+        <div style="height: 40px;"></div>
+      </div>
+    </div>
 
 <%= render 'form', survey: @survey %>
-
-<%= link_to 'Back', surveys_path %>

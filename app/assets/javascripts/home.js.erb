@@ -1,41 +1,10 @@
-$(document).ready(function() {
-
-  function LoadGoogle(x){
-    google.charts.load('current', {
-      callback: drawChart,
-      packages:['corechart']
-    });
-
-    function drawChart() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['Mushrooms', x],
-        ['Onions', x],
-        ['Olives', x],
-        ['Zucchini', x],
-        ['Pepperoni', x]
-      ]);
-
-      var options = {'title':'How Much Pizza I Ate Last Night',
-                     'width':400,
-                     'height':300};
-
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
-  }
-
-
+$(document).on('turbolinks:load', function() {
   var eventSource = new EventSource(
-  "<%= Rails.application.routes.url_helpers.home_stream_test_path %>");
-  $(eventSource).bind("stream_test", function(event) {
+  "<%#= Rails.application.routes.url_helpers.home_stream_test_path %>");
+  $(eventSource).bind("home_stream", function(event) {
     var data = $.parseJSON(event.originalEvent.data);
-    var x = Math.round(data.value.toFixed(2));
-    $('#streamed_data').html(x);
-
-    LoadGoogle(Math.round(x));
-
+    var x = "Total Surveys: " + Math.round(data.total_surveys.toFixed(2));
+    console.log(x);
+    $('.total_surveys').html(x);
   });
 });

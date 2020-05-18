@@ -7,15 +7,6 @@ module ApplicationHelper
       new_object = form.object.send(association).klass.new
     end
     id = new_object.object_id
-    puts 'HEY THERE SHITTY CODER'
-    puts form
-    puts form.object
-    puts form.object.send(association)
-    puts form.object.send(association).klass
-    puts form.object.send(association).klass.new
-    puts new_object
-    puts id
-    puts 'BYE SHITTY CODER'
     fields = form.fields_for(association, new_object, child_index: id) do |builder|
       render(association.to_s.singularize, form: builder)
     end
