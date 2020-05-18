@@ -1,54 +1,59 @@
 $(document).ready(function() { // call in the right document???
 
-	function LoadGoogle() {
+	function LoadGoogle(qId, qTitle, answerList, countList, percList) {
 		google.charts.load('current', {
 			callback: drawChart,
 			packages:['corechart']
 		});
 
 		function drawChart() {
-			//Draw a chart for a given question
+			//Draw a count chart for a given question
 			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Option');
 			data.addColumn('number', 'Number of people');
 			// loop through answers and [a, countnum]
-			/*var questionStatistics = "[";
+			var questionStats = [];
 			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
-				questionStatistics += ("[" + answerList[answerId] + ', ' + countList[answerId] + "]");
+				questionStats.push([ answerList[answerId], countList[answerId] ]);
 			}
-			questionStatistics += "]";
-
-			console.log(questionStatistics)
-			data.addRows(questionStatistics);
-			*/
-
-			data.addRows([
-        ['Mushrooms', 10],
-        ['Onions', 10],
-        ['Olives', 10],
-        ['Zucchini', 10],
-        ['Pepperoni', 10]
-      ]);
-
-			var options = {'title':'How Much Pizza I Ate Last Night',
-										 'width':400,
+			data.addRows(questionStats);
+			var options = {'title':qTitle,
+										 'width':800,
 										 'height':300};
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div_count' + qId));
+			chart.draw(data, options);
 
-			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			//Draw a perc chart for a given question
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Option');
+			data.addColumn('number', 'Percentage of people');
+			// loop through answers and [a, countnum]
+			var questionStats = [];
+			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
+				questionStats.push([ answerList[answerId], percList[answerId] ]);
+			}
+			data.addRows(questionStats);
+			var options = {'title':qTitle,
+										 'width':800,
+										 'height':300};
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div_perc' + qId));
 			chart.draw(data, options);
 		}
 	}
 	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.survey_analysis_analyse_survey_path %>");
 	$(eventSource).bind("updateTables", function(event) {
 		var data = $.parseJSON(event.originalEvent.data);
-		console.log(data);
 		var numberOfQuestions = data.numberOfQuestions;
 		$('#tableOfQuestions').html('');
 		var qId;
     for (qId = 1; qId <= numberOfQuestions; qId++) {
 			var text = "questionTitle";
 			text += qId;
-			$('#tableOfQuestions').append(data[text]);
+			var qTitle = data[text];
+			$('#tableOfQuestions').append("Question Title: " + qTitle + "<br>");
+			var text = "totalAnswers";
+			text += qId;
+			$('#tableOfQuestions').append("Total answers was: " + data[text]);
 			var questionStatistics = "<table><thead><tr>";
 			text = "listOfAnswers";
 			text += qId;
@@ -60,11 +65,25 @@ $(document).ready(function() { // call in the right document???
 			text += qId;
 			var percList = data[text];
 
+			$("Question " + qId).appendTo($('#tableOfQuestions'));
+			// Adds the span container where the count of answers chart is displayed
+			var str = "<span id='chart_div_count";
+			str += qId;
+			str += "'></span>";
+			$(str).appendTo($('#tableOfQuestions'));
+
+			// Adds the span container where the percentage for answers chart is displayed
+			var str = "<span id='chart_div_perc";
+			str += qId;
+			str += "'></span>";
+			$(str).appendTo($('#tableOfQuestions'));
+
 			//Now we've loaded the appropriate data, we'll display it in a graph
-			//LoadGoogle();
+			LoadGoogle(qId, qTitle, answerList, countList, percList);
 
 			// After this draws tables
 			// for each answer in that question
+			/*
 			for (answerId = 0; answerId < Object.keys(answerList).length; answerId++) {
 				questionStatistics += ("<td><strong>" + answerList[answerId] + "</strong></td>");
 			}
@@ -80,6 +99,7 @@ $(document).ready(function() { // call in the right document???
 			}
 			questionStatistics += "</tr></tbody></table>";
 			$('#tableOfQuestions').append(questionStatistics);
+			*/
 		}
 	});
 });

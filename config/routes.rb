@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'survey_analysis/analyse_survey'
+  #get 'surveys/:id?analyse=true', to: 'survey_analysis#analyse_survey'
   resources :question_answers do
     resources :question_option_selections
   end

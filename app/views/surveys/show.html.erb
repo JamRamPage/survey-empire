@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <% if params['answered'] == 'true' or params['belongsToUser'] == 'true' or params['analyse'] == 'true' then %>
   <p>
     <strong>Name:</strong>
@@ -25,7 +28,6 @@
   <span id="streamed_data">data</span><br>
   <strong><span id="dumptest"></span></strong><br>
   <span id="tableOfQuestions"></span><br>
-  <span id="chart_div"></span>
   <%#= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %><br>
 
   <%= link_to 'Edit', edit_survey_path(@survey) %> |

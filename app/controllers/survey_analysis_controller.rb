@@ -33,7 +33,6 @@ class SurveyAnalysisController < ApplicationController
         for option in question.question_options
           listOfAnswers.push(option.optionString)
           countOfAnswers.push(0)
-          puts countOfAnswers
         end
         for questionAnswer in question.question_answers
           timeTaken = questionAnswer.created_at - questionAnswer.timeStarted
