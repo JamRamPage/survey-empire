@@ -8,7 +8,6 @@
         <li><%= link_to('Search', surveys_path)%></li>
         <li> <%= link_to('My Surveys', surveys_path(drafts:true))%></li>
         <li><%= link_to('About', home_about_path)%></li>
-        <li><%= link_to('Contact', home_contact_path)%></li>
         <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
     </ul>
 </div>
@@ -21,7 +20,6 @@
         <li><%= link_to('Login', new_user_session_path, :style=> "color: #fff;") %></li>
         <li><%= link_to('Search', surveys_path)%></li>
         <li><%= link_to('About', home_about_path)%></li>
-        <li><%= link_to('Contact', home_contact_path)%></li>
     </ul>
 </div>
 <% end %>

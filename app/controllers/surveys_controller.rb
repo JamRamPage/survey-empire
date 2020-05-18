@@ -1,7 +1,21 @@
 class SurveysController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   include ActionController::Live
 
+  def record_not_found
+    redirect_to root_path, :flash => { :error => "Record not found." }
+  end
+
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      redirect_to new_user_session_path
+    end
+  end
+    
   def surveyReact
     survey_id = params['survey']
     survey = Survey.where(:id => survey_id).first

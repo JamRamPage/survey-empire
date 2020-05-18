@@ -17,7 +17,7 @@
               <div class="col d-inline-block">
                 <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
                   <div class="field">
-                    <%= form.text_field :survey_name, required: true, class: "border rounded shadow-sm d-inline", placeholder: "Survey Title", style: "width: 60%;height: 40px;padding-left: 5px;background-color: #fff;color: #fff;min-width: 223px;" %>
+                    <%= form.text_field :survey_name, required: true, class: "border rounded shadow-sm d-inline", placeholder: "Survey Title", style: "width: 60%;height: 40px;padding-left: 5px;background-color: #fff;min-width: 223px;" %>
                     <p class="d-inline" style="width: 10%;height: 100%;margin-bottom: 0px;color: #fff;">&nbsp;is a&nbsp;</p>
                     <%= form.select :public, options_for_select([['Public', true],['Private', false]]), {}, {class: "border rounded d-inline", style:"height: 30px;"} %>
                     <p class="d-inline" style="height: 100%;color: #fff;">&nbsp;survey.</p>

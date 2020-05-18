@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
+//= require dataTables/extras/dataTables.responsive
 //= require activestorage
 //= require turbolinks
 //= require cocoon
@@ -19,6 +21,7 @@
 //= require chartkick
 //= require bootstrap
 //= require Sidebar
+//= require table
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {

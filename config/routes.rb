@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   #UNCOMMENT BELOW to stream the homepage
   get 'home/stream_test'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  match '*path' => redirect('/'), via: :all
 end

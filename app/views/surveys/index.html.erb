@@ -1,4 +1,4 @@
-<% if params['drafts'] == 'true' then %>
+<% if params['drafts'] == 'true' and user_signed_in? then %>
 <div class="page-content-wrapper" style="height: 100vh;min-width: 400px;">
 <div class="container-fluid" style="height: 100%;">
     <div class="row" style="background-color: #a3a3a3;">
@@ -11,7 +11,7 @@
     </div>
     <div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
         <div class="col">
-            <div class="table-responsive" style="background-color: #df7c59;color: #fff;">
+            <div style="background-color: #df7c59;color: #fff;">
                 <table class="table">
                     <thead>
                         <tr>
@@ -82,8 +82,8 @@
                 </div>
                 <div class="col col-md-1" style="max-width: 100px;"><button class="btn btn-primary" type="button" style="background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;margin-bottom: 20px;width: 80px;">Search</button></div>
             </div>
-            <div class="table-responsive" style="background-color: #df7c59;color: #fff;">
-                <table class="table">
+            <div style="background-color: #df7c59;color: #fff;">
+                <table id="survey-table" class="table">
                     <thead>
                         <tr>
                             <th class="text-center" style="color: #fff;">Survey Title</th>
