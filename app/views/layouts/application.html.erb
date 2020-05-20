@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -16,6 +16,9 @@
     <div id="wrapper">
       <%= render 'shared/Sidebar' %>
       <%= yield %>
+      <% if !cookies[:allow_cookies] %>
+        <%= render 'layouts/cookies_bar' %>
+      <% end %>
     </div>
   </body>
 </html>

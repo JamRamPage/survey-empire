@@ -21,6 +21,7 @@
  @import 'Sidebar';
  @import 'Sidebar-1';
  @import 'font-awesome';
+ @import 'cookie';
 
 #home_image {
     width: 30%;
@@ -106,7 +107,7 @@ label {
 .link {
     background-color: #d55122 !important;
     color: #fff;
-    text-decoration: none !important; 
+    text-decoration: none !important;
     padding: 5px 5px;
     white-space: nowrap;
 }
