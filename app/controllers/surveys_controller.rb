@@ -55,13 +55,13 @@ class SurveysController < ApplicationController
   # GET /surveys/1/survey_analytics
   def survey_analytics
     puts 'analysing survey'
-    puts @survey = Survey.find(12)
-    puts request.original_url
+    puts @survey = Survey.find(1)
     @questions = @survey.questions
 
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 10000, event: "updateTables")
     surveyData = {"numberOfQuestions".to_sym => @questions.size}
+    surveyData = surveyData.merge({"rating".to_sym => @survey.ratings.average(:rating_value)})
 
     qIndex = 1
     for question in @questions
@@ -142,6 +142,7 @@ class SurveysController < ApplicationController
       surveyData = surveyData.merge({"listOfAnswers#{qIndex}".to_sym => listOfAnswers})
       surveyData = surveyData.merge({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
       surveyData = surveyData.merge({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
+      surveyData = surveyData.merge({"timesTaken#{qIndex}".to_sym => timesTaken})
       qIndex = qIndex + 1
     end
     #sse.write({"numberOfQuestions".to_sym => @questions.size})

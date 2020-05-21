@@ -1,6 +1,6 @@
 $(document).ready(function() { // call in the right document???
 
-	function LoadGoogle(qId, qTitle, answerList, countList, percList) {
+	function LoadGoogle(qId, qTitle, answerList, countList, percList, timesTakenList) {
 		google.charts.load('current', {
 			callback: drawChart,
 			packages:['corechart']
@@ -17,7 +17,7 @@ $(document).ready(function() { // call in the right document???
 				questionStats.push([ answerList[answerId], countList[answerId] ]);
 			}
 			data.addRows(questionStats);
-			var options = {'title':qTitle,
+			var options = {'title':qTitle + " - Count of people",
 										 'width':800,
 										 'height':300};
 			var chart = new google.visualization.BarChart(document.getElementById('chart_div_count' + qId));
@@ -33,10 +33,27 @@ $(document).ready(function() { // call in the right document???
 				questionStats.push([ answerList[answerId], percList[answerId] ]);
 			}
 			data.addRows(questionStats);
-			var options = {'title':qTitle,
+			var options = {'title':qTitle + " - Percentage of people",
 										 'width':800,
 										 'height':300};
 			var chart = new google.visualization.BarChart(document.getElementById('chart_div_perc' + qId));
+			chart.draw(data, options);
+
+			//Draw a time taken chart for a given question
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Time Taken');
+			data.addColumn('number', 'Number of people');
+			// loop through answers and [a, countnum]
+			timeList = ["<10s", "10-30s", "30-50s", ">50s"]
+			var questionStats = [];
+			for (id = 0; id < Object.keys(timeList).length; id++) {
+				questionStats.push([ timeList[id], timesTakenList[id] ]);
+			}
+			data.addRows(questionStats);
+			var options = {'title':qTitle + " - Time taken Histogram",
+										 'width':800,
+										 'height':300};
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div_time' + qId));
 			chart.draw(data, options);
 		}
 	}
@@ -65,6 +82,9 @@ $(document).ready(function() { // call in the right document???
 			text = "percentageForAnswers";
 			text += qId;
 			var percList = data[text];
+			text = "timesTaken";
+			text += qId;
+			var timeList = data[text];
 
 			$("Question " + qId).appendTo($('#tableOfQuestions'));
 			// Adds the span container where the count of answers chart is displayed
@@ -79,8 +99,14 @@ $(document).ready(function() { // call in the right document???
 			str += "'></span>";
 			$(str).appendTo($('#tableOfQuestions'));
 
+			// Adds the span container where the time taken for answers chart is displayed
+			var str = "<span id='chart_div_time";
+			str += qId;
+			str += "'></span>";
+			$(str).appendTo($('#tableOfQuestions'));
+
 			//Now we've loaded the appropriate data, we'll display it in a graph
-			LoadGoogle(qId, qTitle, answerList, countList, percList);
+			LoadGoogle(qId, qTitle, answerList, countList, percList, timeList);
 
 			// After this draws tables
 			// for each answer in that question

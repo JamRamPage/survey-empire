@@ -4,8 +4,7 @@ class SurveyAnalysisController < ApplicationController
 
   def analyse_survey
     puts 'analysing survey'
-    puts @survey = Survey.find(1)
-    puts request.original_url
+    puts @survey = Survey.find(3)
     @questions = @survey.questions
 
     response.headers['Content-Type'] = 'text/event-stream'
@@ -92,6 +91,7 @@ class SurveyAnalysisController < ApplicationController
       surveyData = surveyData.merge({"listOfAnswers#{qIndex}".to_sym => listOfAnswers})
       surveyData = surveyData.merge({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
       surveyData = surveyData.merge({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
+      surveyData = surveyData.merge({"timesTaken#{qIndex}".to_sym => timesTaken})
       qIndex = qIndex + 1
     end
     #sse.write({"numberOfQuestions".to_sym => @questions.size})
