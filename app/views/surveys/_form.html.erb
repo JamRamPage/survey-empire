@@ -1,47 +1,78 @@
-<%= form_with(model: survey, local: true) do |form| %>
-  <% if survey.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
+<div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
+      <div class="col">
+          <%= form_with(model: survey, local: true) do |form| %>
+            <% if survey.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
 
-      <ul>
-      <% survey.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+                <ul>
+                <% survey.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-  <div class="field">
-    <%= form.label :survey_name %>
-    <%= form.text_field :survey_name, required: true %>
-  </div>
+            <div class="row" style="margin-top: 5%;margin-left: 8%;margin-right: 5%;">
+              <div class="col d-inline-block">
+                <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
+                  <div class="field">
+                    <%= form.text_field :survey_name, required: true, class: "border rounded shadow-sm d-inline", placeholder: "Survey Title", style: "width: 60%;height: 40px;padding-left: 5px;background-color: #fff;min-width: 223px;" %>
+                    <p class="d-inline" style="width: 10%;height: 100%;margin-bottom: 0px;color: #fff;">&nbsp;is a&nbsp;</p>
+                    <%= form.select :public, options_for_select([['Public', true],['Private', false]]), {}, {class: "border rounded d-inline", style:"height: 30px;"} %>
+                    <p class="d-inline" style="height: 100%;color: #fff;">&nbsp;survey.</p>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= form.label :public %>
-    <%= form.check_box :public %>
-  </div>
+            <div class="row" style="margin-left: 8%;margin-right: 5%;">
+              <div class="col d-inline-block">
+                <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
+                  <div class="field">
+                    <p style="width: 10%;height: 100%;margin-bottom: 0px;color: #fff;">Expiry&nbsp;Date</p>
+                    <div style="height: 5px;"></div>
+                    <%= form.datetime_select :expiryDate, {default: 7.days.from_now, min: Date.today }%>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
 
-  <div class="field">
-    <%= form.label :creationDate %>
-    <%= form.datetime_select :creationDate %>
-  </div>
+            <div class="field">
+              <%= form.hidden_field :user_id, value: current_user.id, readonly: true %>
+              <%#= hidden_field_tag 'user_id', current_user %>
+              <%= form.hidden_field :creationDate, value: Time.now, readonly: true %>
+              <%#= hidden_field_tag 'creationDate', Time %>
+              <%= form.hidden_field :likes, value: 0, readonly: true %>
+              <%#= hidden_field_tag 'likes', '0' %>
+              <%= form.hidden_field :dislikes, value: 0, readonly: true %>
+              <%#= hidden_field_tag 'dislikes', '0' %>
+            </div>
 
-  <div class="field">
-    <%= form.label :expiryDate %>
-    <%= form.datetime_select :expiryDate %>
-  </div>
-
-  <div class="field">
-    <%= form.label :likes %>
-    <%= form.number_field :likes %>
-  </div>
-
-  <div class="field">
-    <%= form.label :dislikes %>
-    <%= form.number_field :dislikes %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+            
+            
+            <div class="questions">
+              <%= form.fields_for :questions do |questions_form| %>
+                <%= render 'question_fields', f: questions_form %>
+              <% end %>
+            </div>
+               
+            <div class="row actions" style="margin-left: 8%;margin-right: 50px;">
+              <div class="col" style="margin-right: 20px;">
+                <%= link_to_add_association 'Add Question', form, :questions, data: {association_insertion_method: "append", association_insertion_node: ".questions"}, class:"btn btn-primary d-inline", style:"background-color: #d55122;color: white;padding-top: 3px;padding-bottom: 6px;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
+              </div>
+            </div>
+            
+            <div style="padding-top: 30px;">
+              <div class="row actions">
+                <div class="col text-right" style="margin-left: 8%;padding-left: 11px;">
+                  <%= link_to 'Delete Survey', surveys_path(drafts:true), class:"btn btn-primary d-inline float-left Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;"%>
+                </div>
+                <div class="col">
+                  <%= form.submit "Publish Survey", class:"btn btn-primary d-inline float-right Submit", style:"background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;"%>
+                </div>
+              </div>
+            </div>
+          <% end %>

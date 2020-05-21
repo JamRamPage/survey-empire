@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_142705) do
+ActiveRecord::Schema.define(version: 2020_05_21_105544) do
 
   create_table "question_answers", force: :cascade do |t|
     t.integer "question_id", null: false
@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 2020_03_21_142705) do
     t.datetime "timeEnded"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "survey_id"
     t.index ["question_id"], name: "index_question_answers_on_question_id"
+    t.index ["survey_id"], name: "index_question_answers_on_survey_id"
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
 
@@ -52,6 +54,14 @@ ActiveRecord::Schema.define(version: 2020_03_21_142705) do
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer "survey_id"
+    t.integer "user_id"
+    t.integer "rating_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "surveys", force: :cascade do |t|
     t.boolean "public", default: false, null: false
     t.datetime "creationDate", null: false
@@ -73,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_03_21_142705) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "consent", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

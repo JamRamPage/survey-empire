@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Question</th>
+      <th>Survey</th>
       <th>User</th>
       <th>Givenanswer</th>
       <th>Timestarted</th>
@@ -18,6 +19,7 @@
     <% @question_answers.each do |question_answer| %>
       <tr>
         <td><%= question_answer.question %></td>
+        <td><%= question_answer.survey %></td>
         <td><%= question_answer.user %></td>
         <td><%= question_answer.givenAnswer %></td>
         <td><%= question_answer.timeStarted %></td>

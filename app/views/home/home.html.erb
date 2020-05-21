@@ -1,9 +1,75 @@
-<h1>Home#home</h1>
-<p>Find me in app/views/home/home.html.erb</p>
-<p>The home page for SurveyEmpire. Here you should be able to log in, and then
-navigate to pages for survey creation, and survey searching</p>
-<%= link_to 'Surveys index', surveys_path %></br>
-<%= link_to 'Questions index', questions_path %></br>
-<%= link_to 'QuestionAnswers index', question_answers_path %></br>
-<%= link_to 'QuesitonOptions index', question_options_path %></br>
-<%= link_to 'QuestionOptionSelection index', question_option_selections_path %></br>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<% if user_signed_in? %>
+  <div class="page-content-wrapper" style="min-height: 100vh;min-width: 430px;background-image: url(<%= asset_path 'background_6.jpg' %>);">
+  <div class="container-fluid" style="height: 100%;">
+    <a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle">
+      <i class="fa fa-bars" id="side-button" style="color: #d55122;"></i>
+    </a>
+    <div class="row">
+        <div class="col-md-12" style="height: auto;">
+          <div class="text-center">
+            <%= image_tag ("SurveyEmpireLogo1.png"), id: 'home_image'%>
+          </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 5%;">
+        <div class="col">
+          <div class="text-center" style="padding: 10px 10px;">
+            <%= link_to('MY SURVEYS',  surveys_path(drafts:true), :class=> 'btn btn-primary',:style=> 'height: 80px;width: 160px;background-color: #d55122;color: #fff;border-color: #d55122;line-height: 65px;box-shadow: 0 0 0 0 transparent;')%>
+          </div>
+        </div>
+        <div class="col">
+          <div class="text-center" style="padding: 10px 10px;">
+            <%= link_to('SEARCH', surveys_path, :class=> 'btn btn-primary',:style=> 'height: 80px;width: 160px;background-color: #d55122;color: #fff;border-color: #d55122;line-height: 65px;box-shadow: 0 0 0 0 transparent;')%>
+          </div>
+        </div>
+    </div>
+    <div class="row" style="position: fixed;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;bottom: 0;right: 0;padding-right: 30px;padding-bottom: 10px;">
+        <div class="col">
+            <div class="text-center">
+                <p class="text-right" style="margin-bottom: 0px;color: white;">Total Surveys: 2</p>
+                <p class="text-right" style="margin-bottom: 0px;color: white;">Total Responses: 56</p>
+            </div>
+        </div>
+    </div>
+  </div>
+  </div>
+<% else %>
+  <div class="page-content-wrapper" style="min-height: 100vh;min-width: 430px;background-image: url(<%= asset_path 'background_6.jpg' %>);">
+    <div class="container-fluid" style="height: 100%;">
+      <a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle">
+        <i class="fa fa-bars" id="side-button" style="color: #d55122;"></i>
+      </a>
+      <div class="row">
+          <div class="col-md-12" style="height: auto;">
+            <div class="text-center">
+              <%= image_tag ("SurveyEmpireLogo1.png"), id: 'home_image'%>
+            </div>
+          </div>
+      </div>
+      <div class="row" style="padding-top: 5%;">
+          <div class="col">
+            <div class="text-center" style="padding: 10px 10px;">
+              <%= link_to('LOGIN',  new_user_session_path, :class=> 'btn btn-primary',:style=> 'height: 80px;width: 160px;background-color: #d55122;color: #fff;border-color: #d55122;line-height: 65px;box-shadow: 0 0 0 0 transparent;')%>
+            </div>
+          </div>
+          <div class="col">
+            <div class="text-center" style="padding: 10px 10px;">
+              <%= link_to('SEARCH', surveys_path, :class=> 'btn btn-primary',:style=> 'height: 80px;width: 160px;background-color: #d55122;color: #fff;border-color: #d55122;line-height: 65px;box-shadow: 0 0 0 0 transparent;')%>
+            </div>
+          </div>
+      </div>
+      <div class="row" style="position: fixed;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;bottom: 0;right: 0;padding-right: 30px;padding-bottom: 10px;">
+          <div class="col">
+              <div class="text-center">
+                  <p class="text-right total_surveys" style="margin-bottom: 0px;color: white;">Total Surveys: 2</p>
+                  <p class="text-right" style="margin-bottom: 0px;color: white;">Total Responses: 56</p>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+<div class="row nested-fields" style="margin-left: 45px;">
+  <div class="col">
+    <div style="padding: 10px 10px;background-color: #df7c59;">
+    <%#= form.hidden_field :_destroy %>
+      <%#= link_to 'Delete', '#', class: 'remove_record' %>
+      <%= link_to_remove_association "×", f , class:"btn btn-primary d-inline-block", style:"background-color: #d55122;color: white;font-size: 20px;border-color: transparent;padding: 3px 12px;box-shadow: 0 0 0 0 transparent;"%>
+      <%= f.text_field :optionString, class:"border rounded d-inline", placeholder:"Answer", style:"height: 40px;padding-left: 5px;margin-left: 2%;width: 35%;min-width: 162px;"%>
+      <p class="d-inline" style="width: 10%;height: 100%;color: #fff;">&nbsp;is a correct answer?&nbsp;</p>
+      <%= f.check_box :correct %>
+    </div>
+  </div>
+</div>
