@@ -5,13 +5,13 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version 2.5.1 on Heron Computers
 
 * System dependencies
 
 * Configuration
 
-* Database creation
+* Database creation - You'll likely need to run "Rake db:migrate" before running the project
 
 * Database initialization
 
