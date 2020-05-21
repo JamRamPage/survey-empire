@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_105544) do
+ActiveRecord::Schema.define(version: 2020_05_21_120854) do
 
   create_table "question_answers", force: :cascade do |t|
     t.integer "question_id", null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_105544) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "survey_name", default: "", null: false
+    t.boolean "deployed", default: false
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 

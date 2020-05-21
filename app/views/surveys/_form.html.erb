@@ -31,6 +31,20 @@
               <div class="col d-inline-block">
                 <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
                   <div class="field">
+                    <p style="width: 10%;height: 100%;margin-bottom: 0px;color: #fff;">Deploy&nbsp;Now?&nbsp;(Users&nbsp;will&nbsp;be&nbsp;able&nbsp;to&nbsp;answer&nbsp;if&nbsp;true)</p>
+                    <div style="height: 5px;"></div>
+                    <%= form.label :deployed %>
+                    <%= form.check_box :deployed %>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+              </div>
+            </div>
+
+            <div class="row" style="margin-left: 8%;margin-right: 5%;">
+              <div class="col d-inline-block">
+                <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
+                  <div class="field">
                     <p style="width: 10%;height: 100%;margin-bottom: 0px;color: #fff;">Expiry&nbsp;Date</p>
                     <div style="height: 5px;"></div>
                     <%= form.datetime_select :expiryDate, {default: 7.days.from_now, min: Date.today }%>
@@ -51,27 +65,27 @@
               <%#= hidden_field_tag 'dislikes', '0' %>
             </div>
 
-            
-            
+
+
             <div class="questions">
               <%= form.fields_for :questions do |questions_form| %>
                 <%= render 'question_fields', f: questions_form %>
               <% end %>
             </div>
-               
+
             <div class="row actions" style="margin-left: 8%;margin-right: 50px;">
               <div class="col" style="margin-right: 20px;">
                 <%= link_to_add_association 'Add Question', form, :questions, data: {association_insertion_method: "append", association_insertion_node: ".questions"}, class:"btn btn-primary d-inline", style:"background-color: #d55122;color: white;padding-top: 3px;padding-bottom: 6px;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
               </div>
             </div>
-            
+
             <div style="padding-top: 30px;">
               <div class="row actions">
                 <div class="col text-right" style="margin-left: 8%;padding-left: 11px;">
                   <%= link_to 'Delete Survey', surveys_path(drafts:true), class:"btn btn-primary d-inline float-left Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;"%>
                 </div>
                 <div class="col">
-                  <%= form.submit "Publish Survey", class:"btn btn-primary d-inline float-right Submit", style:"background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;"%>
+                  <%= form.submit "Save Survey", class:"btn btn-primary d-inline float-right Submit", style:"background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;"%>
                 </div>
               </div>
             </div>

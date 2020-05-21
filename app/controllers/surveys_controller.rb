@@ -20,15 +20,8 @@ class SurveysController < ApplicationController
     survey = Survey.where(:id => survey_id).first
     puts params['like']
     if params['like'] == "true" then
-      puts 'liking'
-      puts survey
-      puts survey.id
       survey.likes = survey.likes + 1
     else
-      puts 'disliking'
-      puts survey
-      puts survey.id
-      puts survey.survey_name
       survey.dislikes = survey.dislikes + 1
     end
     survey.save
@@ -38,11 +31,10 @@ class SurveysController < ApplicationController
   # GET /surveys.json
   def index
     if params['drafts'] == 'true' then
-      puts 'showing surveys belonging to current user'
       @surveys = Survey.where(:user_id => current_user)
     else
-      puts 'showing all public surveys'
-      @surveys = Survey.where(:public => true)
+      #Show publicly available deployed surveys
+      @surveys = Survey.where(:public => true).where(:deployed => true)
     end
   end
 
@@ -215,7 +207,7 @@ class SurveysController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def survey_params
-      params.require(:survey).permit(:survey_name, :public, :creationDate, :expiryDate, :likes, :dislikes, :user_id,
+      params.require(:survey).permit(:survey_name, :deployed, :public, :creationDate, :expiryDate, :likes, :dislikes, :user_id,
       :questions_attributes => [:id, :survey_id, :questionString, :multipleChoice, :multipleAnswer, :created_at, :updated_at, :_destroy,
         :question_options_attributes => [:id, :question_id, :optionString, :correct, :created_at, :updated_at, :_destroy]]
       )
