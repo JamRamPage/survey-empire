@@ -92,9 +92,13 @@
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.questions.size%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.ratings.average(:rating_value).presence || '-'%>/5</td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true', class:"link-table" %></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
+                              <% if QuestionAnswer.where(:survey_id => survey).where(:user_id => current_user).take != nil then %>
+                                <td class="text-center" style="color: #fff;background-color: #df7c59;">Already Answered :(</td>
+                              <% else %>
+                                <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
+                              <% end %>
                             </tr>
-                        <% end %>
+                          <% end %>
 
                     </tbody>
                 </table>
