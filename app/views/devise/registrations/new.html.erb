@@ -14,7 +14,7 @@
                             <%= render "devise/shared/error_messages", resource: resource %>
 
                             <div class="field">
-                              <%= f.email_field :email, autofocus: true, placeholder:"Email", autocomplete: "email", class:"border rounded shadow-sm d-inline", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent;background-color: #fff;" %>
+                              <%= f.email_field :email, autofocus: true, placeholder:"Email", autocomplete: "email", class:"border rounded shadow-sm d-inline", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent!important;background-color: #fff;" %>
                             </div>
 
                             <div class="field">
@@ -23,11 +23,16 @@
                               <em style='color:#fff;'>(<%= @minimum_password_length %> characters minimum)</em>
                               <% end %><br />
                               </div>
-                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent;background-color: #fff;" %>
+                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent!important;background-color: #fff;" %>
                             </div>
 
                             <div class="field">
-                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Confirm Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent;background-color: #fff;" %>
+                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Confirm Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent!important;background-color: #fff;" %>
+                            </div>
+
+                            <div class="field text-left form-check">
+                              <%= f.check_box :consent, class:'form-check-input' %>
+                              <%= f.label :consent, "By Clicking agree", class:'form-check-label', style: 'color: #fff;margin:0;' %>
                             </div>
 
                             <div class="actions text-left">

@@ -164,3 +164,21 @@ tr {
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+.field_with_errors { 
+    display: initial !important; 
+    padding: 0px !important;
+}
+
+.field_with_errors input { 
+    border-color: red !important;
+    border-width: 2px !important;
+}
+
+.field_with_errors label { 
+    background-color: red;
+}
+
+input {
+    outline: none !important;
+}
