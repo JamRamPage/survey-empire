@@ -4,13 +4,14 @@ class SurveyAnalysisController < ApplicationController
 
   def analyse_survey
     puts 'analysing survey'
-    puts @survey = Survey.find(12)
+    puts @survey = Survey.find(1)
     puts request.original_url
     @questions = @survey.questions
 
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 10000, event: "updateTables")
     surveyData = {"numberOfQuestions".to_sym => @questions.size}
+    surveyData = surveyData.merge({"rating".to_sym => @survey.ratings.average(:rating_value)})
 
     qIndex = 1
     for question in @questions

@@ -44,6 +44,7 @@ $(document).ready(function() { // call in the right document???
 	$(eventSource).bind("updateTables", function(event) {
 		var data = $.parseJSON(event.originalEvent.data);
 		var numberOfQuestions = data.numberOfQuestions;
+		$('#rating').html(data.rating);
 		$('#tableOfQuestions').html('');
 		var qId;
     for (qId = 1; qId <= numberOfQuestions; qId++) {

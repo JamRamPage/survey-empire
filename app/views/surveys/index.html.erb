@@ -32,7 +32,7 @@
                             <tr>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.survey_name%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.public %></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.creationDate%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.created_at%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.expiryDate%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.questions.size%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.ratings.average(:rating_value)%></td>
@@ -40,8 +40,8 @@
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Edit', edit_survey_path(survey), class:"link-table" %></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' }, class:"link-table" %></td>
-                            </tr> 
-                        <% end %> 
+                            </tr>
+                        <% end %>
                     </tbody>
                 </table>
             </div>
@@ -83,7 +83,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                           <% @surveys.each do |survey| %>
                             <tr>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.survey_name%></td>
@@ -94,8 +94,8 @@
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true', class:"link-table" %></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
                             </tr>
-                        <% end %>  
-                        
+                        <% end %>
+
                     </tbody>
                 </table>
             </div>

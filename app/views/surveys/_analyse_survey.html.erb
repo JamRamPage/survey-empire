@@ -11,30 +11,21 @@
         </div>
     </div>
     <div style="height:20px;"></div>
-    <div class='row' style="width:150px;margin-left: 5%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+    <div class='row' style="width:320px;margin-left: 5%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
         <div class='col' style="color:#fff">
-            <strong>Likes:</strong>
-            <%= @survey.likes %>
-        </div>
-    </div>
-    <div class='row' style="width:150px;margin-left: 5%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
-        <div class='col' style="color:#fff">
-            <strong>Dislikes:</strong>
-            <%= @survey.dislikes %>
+            <strong>Rating:</strong>
+            <span id="rating"></span><br>
         </div>
     </div>
     <div style="height:20px;"></div>
-    <div class='row' style="width:150px;margin-left: 5%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+    <div class='row' style="width:320px;margin-left: 5%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
         <div class='col' style="color:#fff">
             <%# template for tables for questions - there would obviously be an unknown number of questions and answers, so this <table>
             must be generated using javascript from the streamed data (FRONT END) %>
-            <span id="streamed_data">questionTitle</span>
             <span id="tableOfQuestions"></span><br>
             <%#= Rails.application.routes.url_helpers.surveys_survey_analytics_path(@survey) %><br>
         </div>
     </div>
-    
+
   </div>
 </div>
-
-  
