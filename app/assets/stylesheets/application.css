@@ -70,8 +70,8 @@
     margin-left: 0px !important;
 }
 
-#survey-table_filter {
-    float: none;
+.dataTables_wrapper .dataTables_filter {
+    float: none !important;
 }
 
 .spacer {
@@ -103,10 +103,64 @@ label {
     color: #fff !important;
 }
 
-.link {
+.link-table {
     background-color: #d55122 !important;
-    color: #fff;
+    color: #fff !important;
     text-decoration: none !important;
     padding: 5px 5px;
     white-space: nowrap;
+}
+
+table.dataTable tbody tr.child {
+    background-color: #df7c59 !important;
+}
+
+table.dataTable tbody tr.child:hover {
+    background-color: #df7c59 !important;
+}
+
+.responsive-table {
+    border-color: transparent !important;
+    background-color: #df7c59 !important;
+}
+
+tr {
+    background-color: #df7c59 !important;
+    color: #fff;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+    line-height: 45px !important;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }

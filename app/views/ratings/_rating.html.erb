@@ -1,0 +1,18 @@
+<%= form_tag(survey_ratings_path(@survey), action: "create", method: "post") %>
+<div class='row' style="margin-left: 8%;width:280px;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+    <div class='col rate'>
+        <%= radio_button_tag(:rating_value, '5', checked = false, id: "star5") %>
+        <label for="star5" title="text">5 stars</label>
+        <%= radio_button_tag(:rating_value, '4', checked = false, id: "star4") %>
+        <label for="star4" title="text">4 stars</label>
+        <%= radio_button_tag(:rating_value, '3', checked = false, id: "star3") %>
+        <label for="star3" title="text">3 stars</label>
+        <%= radio_button_tag(:rating_value, '2', checked = false, id: "star2") %>
+        <label for="star2" title="text">2 stars</label>
+        <%= radio_button_tag(:rating_value, '1', checked = false, id: "star1") %>
+        <label for="star1" title="text">1 star</label>
+        <div class="Action" style="height:100%;line-height:46px;">
+            <%= submit_tag 'Rate', class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
+        </div>
+    </div>
+</div>

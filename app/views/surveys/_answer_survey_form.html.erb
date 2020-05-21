@@ -8,10 +8,10 @@ the time taken to answer each one? %>
     <% questions.each do |question| %>
       <%= render 'answer_question_form', question_answer: QuestionAnswer.new, question: question %>
     <% end %>
-    <%= button_to 'Like', :params => {like: true, survey: @survey}, class:"btn btn-primary d-inline float-left", style:"background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;"%>
-    <%= button_to 'Dislike', :params => {like: false, survey: @survey}, class:"btn btn-primary d-inline float-left", style:"background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;" %>
+    <%= render "ratings/rating" %>
+    <div style="height:20px;"></div>
     <div class="actions">
-      <%= link_to 'Submit Answers', survey_path(@survey) + '?answered=true', class:"btn btn-primary d-inline float-right Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;" %>
+      <%= link_to 'View Results', survey_path(@survey) + '?answered=true', class:"btn btn-primary d-inline float-right Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;", data: { disable_with: "Answered" } %>
     </div>
   </div>
 </div>

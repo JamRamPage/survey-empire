@@ -4,7 +4,7 @@ class SurveysController < ApplicationController
   include ActionController::Live
 
   def record_not_found
-    redirect_to root_path, :flash => { :error => "Record not found." }
+    redirect_to root_path, :flash => { :error => "Survey not found." }
   end
 
   def authenticate_user!

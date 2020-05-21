@@ -11,40 +11,37 @@
     </div>
     <div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
         <div class="col">
-            <div style="background-color: #df7c59;color: #fff;">
-                <table class="table">
+            <div >
+                <table class="table display" id="" style="background-color: #df7c59;color: #fff;border-color:#fff;">
                     <thead>
                         <tr>
-                            <th class="text-center" style="color: #fff;">Survey Title</th>
-                            <th class="text-center" style="color: #fff;">Public?</th>
-                            <th class="text-center" style="color: #fff;">Date Created</th>
-                            <th class="text-center" style="color: #fff;">Expiry Date</th>
-                            <th class="text-center" style="color: #fff;">Questions</th>
-                            <th class="text-center" style="color: #fff;">Likes</th>
-                            <th class="text-center" style="color: #fff;">Dislikes</th>
-                            <th class="text-center" style="color: #fff;">Analysis</th>
-                            <th class="text-center" style="color: #fff;">Answer Survey</th>
-                            <th class="text-center" style="color: #fff;">Edit</th>
-                            <th class="text-center" style="color: #fff;">Delete</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Survey Title</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Public?</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Date Created</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Expiry Date</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Questions</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Rating</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Analysis</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Answer Survey</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Edit</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                          <% @surveys.each do |survey| %>
+                        <% @surveys.each do |survey| %>
                             <tr>
-                              <td class="text-center" style="color: #fff;"><%= survey.survey_name%></td>
-                              <td class="text-center" style="color: #fff;"><%= survey.public%></td>
-                              <td class="text-center" style="color: #fff;"><%= survey.creationDate%></td>
-                              <td class="text-center" style="color: #fff;"><%= survey.expiryDate%></td>
-                              <td class="text-center" style="color: #fff;"><%= survey.questions.size%></td>
-                              <td class="text-center" style="color: #fff;"><%= survey.likes%></td>
-                              <td class="text-center" style="color: #fff;"><%= survey.dislikes%></td>
-                              <td class="text-center" style="color: #fff;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true' %></td>
-                              <td class="text-center" style="color: #fff;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false' %></td>
-                              <td class="text-center" style="color: #fff;"><%= link_to 'Edit', edit_survey_path(survey) %></td>
-                              <td class="text-center" style="color: #fff;"><%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                          <% end %>
-                        </tr>  
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.survey_name%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.public %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.creationDate%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.expiryDate%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.questions.size%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.ratings.average(:rating_value)%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true', class:"link-table" %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Edit', edit_survey_path(survey), class:"link-table" %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' }, class:"link-table" %></td>
+                            </tr> 
+                        <% end %> 
                     </tbody>
                 </table>
             </div>
@@ -73,17 +70,16 @@
     <div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
         <div class="col">
             <div>
-                <table class="table" id="survey-table">
+                <table class="table display" id="" style="border-color:#fff;">
                     <thead>
                         <tr>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Survey Title</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Date Created</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Expiry Date</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Questions</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Likes</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Dislikes</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Analysis</th>
-                            <th class="text-center" style="color: #fff;background-color: #df7c59;">Answer Survey</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Survey Title</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Date Created</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Expiry Date</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Questions</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Rating</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Analysis</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Answer Survey</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,10 +90,9 @@
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.creationDate%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.expiryDate%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.questions.size%></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.likes%></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= survey.dislikes%></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true', class:"link" %></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link" %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.ratings.average(:rating_value)%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true', class:"link-table" %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
                             </tr>
                         <% end %>  
                         
