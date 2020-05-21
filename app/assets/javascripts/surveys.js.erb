@@ -65,13 +65,18 @@ $(document).ready(function() { // call in the right document???
 		$('#tableOfQuestions').html('');
 		var qId;
     for (qId = 1; qId <= numberOfQuestions; qId++) {
+			console.log(data);
 			var text = "questionTitle";
 			text += qId;
 			var qTitle = data[text];
 			$('#tableOfQuestions').append("Question Title: " + qTitle + "<br>");
 			var text = "totalAnswers";
 			text += qId;
-			$('#tableOfQuestions').append("Total answers was: " + data[text]);
+			$('#tableOfQuestions').append("Total answers was: " + data[text] + "<br>");
+			var text = "correctAnswers";
+			text += qId;
+			var correctAnswers = data[text];
+			$('#tableOfQuestions').append("Correct options were: " + correctAnswers);
 			var questionStatistics = "<table><thead><tr>";
 			text = "listOfAnswers";
 			text += qId;
@@ -106,7 +111,7 @@ $(document).ready(function() { // call in the right document???
 			$(str).appendTo($('#tableOfQuestions'));
 
 			//Now we've loaded the appropriate data, we'll display it in a graph
-			LoadGoogle(qId, qTitle, answerList, countList, percList, timeList);
+			LoadGoogle(qId, qTitle, answerList, countList, percList, timeList, correctAnswers);
 
 			// After this draws tables
 			// for each answer in that question

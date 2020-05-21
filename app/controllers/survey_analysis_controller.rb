@@ -92,6 +92,7 @@ class SurveyAnalysisController < ApplicationController
       surveyData = surveyData.merge({"countOfAnswers#{qIndex}".to_sym => countOfAnswers})
       surveyData = surveyData.merge({"percentageForAnswers#{qIndex}".to_sym => percentageForAnswers})
       surveyData = surveyData.merge({"timesTaken#{qIndex}".to_sym => timesTaken})
+      surveyData = surveyData.merge({"correctAnswers#{qIndex}".to_sym => correctOptions})
       qIndex = qIndex + 1
     end
     #sse.write({"numberOfQuestions".to_sym => @questions.size})
