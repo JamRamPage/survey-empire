@@ -1,0 +1,67 @@
+<%= form_with(model: question_answer, question: question, local: true) do |form| %>
+  <% if question_answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question_answer.errors.count, "error") %> prohibited this question_answer from being saved:</h2>
+
+      <ul>
+      <% question_answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :question_id %>
+    <%= form.text_field :question_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :survey_id %>
+    <%= form.text_field :survey_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :givenAnswer %>
+    <%= form.text_field :givenAnswer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :timeStarted %>
+    <%= form.datetime_select :timeStarted %>
+  </div>
+
+  <div class="field">
+    <%= form.label :timeEnded %>
+    <%= form.datetime_select :timeEnded %>
+  </div>
+
+  <% if question.multipleChoice == true then %>
+    <%# Get question options %>
+    <% questionOptions = QuestionOption.where(:question_id => question) %>
+  <% end %>
+  <% if question.multipleChoice == true && question.multipleAnswer == true then %>
+    <%# List question options as tick boxes - user can select any number %>
+    <% questionOptions.each do |option| %>
+      <%= check_box_tag(option.optionString) %>
+    <% end %>
+  <% elsif question.multipleChoice == true then %>
+    <%# List question options as radio buttons - user can select 1 %>
+    <% questionOptions.each do |option| %>
+      <%= radio_button_tag(option.optionString) %>
+    <% end %>
+  <% else %>
+    <%# Question is single-answer, don't display options, just display a text box instead %>
+    <%= form.label :givenAnswer %>
+    <%= form.text_field :givenAnswer %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

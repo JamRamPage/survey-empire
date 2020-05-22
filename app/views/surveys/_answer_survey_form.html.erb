@@ -1,0 +1,17 @@
+<%# In this file, we should render the _answer_question_form.html.erb
+partial for each question in the survey, allowing the user to answer them in turn
+- perhaps include a button to start each question - this can help to measure
+the time taken to answer each one? %>
+<div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
+  <div class="col">
+    <% questions = @survey.questions %>
+    <% questions.each do |question| %>
+      <%= render 'answer_question_form', question_answer: QuestionAnswer.new, question: question %>
+    <% end %>
+    <%= render "ratings/rating" %>
+    <div style="height:20px;"></div>
+    <div class="actions">
+      <%= link_to 'View Results', survey_path(@survey) + '?answered=true', class:"btn btn-primary d-inline float-right Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;margin-right: 50px;box-shadow: 0 0 0 0 transparent;", data: { disable_with: "Answered" } %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Survey</th>
+      <th>Questionstring</th>
+      <th>Multiplechoice</th>
+      <th>Multipleanswer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.survey.survey_name %></td>
+        <td><%= question.questionString %></td>
+        <td><%= question.multipleChoice %></td>
+        <td><%= question.multipleAnswer %></td>
+        <td><%= link_to 'Show', survey_question_path(@survey, question) %></td>
+        <td><%= link_to 'Edit', edit_survey_question_path(@survey, question) %></td>
+        <td><%= link_to 'Destroy', [@survey, question], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_survey_question_path(@survey) %>
+<%= link_to 'Back to Survey', survey_path(@survey) %>

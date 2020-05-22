@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question: one
+  user: one
+  givenAnswer: MyString
+  timeStarted: 2020-03-21 12:16:22
+  timeEnded: 2020-03-21 12:16:22
+
+two:
+  question: two
+  user: two
+  givenAnswer: MyString
+  timeStarted: 2020-03-21 12:16:22
+  timeEnded: 2020-03-21 12:16:22

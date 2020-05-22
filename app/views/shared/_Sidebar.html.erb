@@ -1,0 +1,31 @@
+<% if user_signed_in? %>
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <%= link_to('Home', root_path, :style=> "color: #fff;") %>
+        </li>
+        <% if current_user.premium == true %>
+          <li><%= link_to('Create', new_survey_path)%></li>
+        <% else %>
+          <li><%= link_to('Premium', "home/payments")%></li>
+        <% end %>
+        <li><%= link_to('Search', surveys_path)%></li>
+        <% if current_user.premium == true %>
+          <li> <%= link_to('My Surveys', surveys_path(drafts:true))%></li>
+        <% end %>
+        <li><%= link_to('About', home_about_path)%></li>
+        <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
+    </ul>
+</div>
+<% else %>
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <%= link_to('Home', root_path, :style=> "color: #fff;") %>
+        </li>
+        <li><%= link_to('Login', new_user_session_path, :style=> "color: #fff;") %></li>
+        <li><%= link_to('Search', surveys_path)%></li>
+        <li><%= link_to('About', home_about_path)%></li>
+    </ul>
+</div>
+<% end %>

@@ -1,0 +1,165 @@
+<% if user_signed_in? %>
+<%= form_with(model: question_answer, question: question, local: true) do |form| %>
+  <div class="row answer-question">
+    <div class="col d-inline-block">
+      <div style="margin-left: 8%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+        <% if question_answer.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(question_answer.errors.count, "error") %> prohibited this question_answer from being saved:</h2>
+
+            <ul>
+            <% question_answer.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% startTime = DateTime.now %>
+        <div class="field">
+          <%= form.hidden_field :question_id, value: question.id, readonly: true %>
+          <%#= hidden_field_tag 'question_id', :question_id %>
+          <%= form.hidden_field :survey_id, value: question.survey_id, readonly: true %>
+          <%#= hidden_field_tag 'survey_id', :survey_id %>
+          <%= form.hidden_field :user_id, value: current_user.id, readonly: true %>
+          <%#= hidden_field_tag 'user_id', :user_id %>
+          <%= form.hidden_field :timeStarted, value: startTime, readonly: true %>
+          <%#= hidden_field_tag 'timeStarted', startTime %>
+          <%= form.hidden_field :timeEnded, readonly: true %>
+          <%#= hidden_field_tag 'timeEnded' %>
+        </div>
+            
+        <h3 style="width: 100%;color: #fff;"><%= question.questionString %></h3>
+            
+        <% if question.multipleChoice == true then %>
+          <%# Get question options %>
+          <% questionOptions = QuestionOption.where(:question_id => question) %>
+        <% end %>
+        <% if question.multipleChoice == true && question.multipleAnswer == true then %>
+          <%# List question options as tick boxes - user can select any number %>
+          <div class="field">
+            <% for questionOption in questionOptions.each %>
+              <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+                <div class='col'>
+                  <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
+                  <%= questionOption.optionString %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% elsif question.multipleChoice == true then %>
+          <%# List question options as radio buttons - user can select 1 %>
+          <div class="field">
+            <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+              <div class='col'>
+                <%= form.collection_radio_buttons(:selectedOption, questionOptions, :id, :optionString) do |b|%>
+                  <div class = 'row'>
+                    <div class = 'col d-inline'>
+                      <%= b.label(class: 'd-inline', style: 'color:#fff;') {b.radio_button(class: 'd-inline-block') + b.label(class: 'd-inline', style: 'color:#fff;padding-left:5px;')}%>
+                    </div>
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <%# Question is single-answer, don't display options, just display a text box instead %>
+          <div class="field">
+          <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+            <div class='col'>
+              <%= form.text_field :givenAnswer, class:"border rounded d-inline", placeholder:"Answer", style:"width: 80%;height: 40px;padding-left: 5px;min-width: 162px;" %>
+            </div>
+          </div>
+          <div class="field">
+        <% end %>
+            
+        <div class="actions">
+          <%= form.submit "Answer Question", class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height: 20px;"></div>
+<% end %>
+<% else %>
+<%= form_with(model: question_answer, question: question, local: true) do |form| %>
+  <div class="row answer-question">
+    <div class="col d-inline-block">
+      <div style="margin-left: 8%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+        <% if question_answer.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(question_answer.errors.count, "error") %> prohibited this question_answer from being saved:</h2>
+
+            <ul>
+            <% question_answer.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% startTime = DateTime.now %>
+        <div class="field">
+          <%= form.hidden_field :question_id, value: question.id, readonly: true %>
+          <%#= hidden_field_tag 'question_id', :question_id %>
+          <%= form.hidden_field :survey_id, value: question.survey_id, readonly: true %>
+          <%#= hidden_field_tag 'survey_id', :survey_id %>
+          <%= form.hidden_field :user_id, readonly: true %>
+          <%#= hidden_field_tag 'user_id', :user_id %>
+          <%= form.hidden_field :timeStarted, value: startTime, readonly: true %>
+          <%#= hidden_field_tag 'timeStarted', startTime %>
+          <%= form.hidden_field :timeEnded, readonly: true %>
+          <%#= hidden_field_tag 'timeEnded' %>
+        </div>
+            
+        <h3 style="width: 100%;color: #fff;"><%= question.questionString %></h3>
+            
+        <% if question.multipleChoice == true then %>
+          <%# Get question options %>
+          <% questionOptions = QuestionOption.where(:question_id => question) %>
+        <% end %>
+        <% if question.multipleChoice == true && question.multipleAnswer == true then %>
+          <%# List question options as tick boxes - user can select any number %>
+          <div class="field">
+            <% for questionOption in questionOptions.each %>
+              <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+                <div class='col'>
+                  <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
+                  <%= questionOption.optionString %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% elsif question.multipleChoice == true then %>
+          <%# List question options as radio buttons - user can select 1 %>
+          <div class="field">
+            <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+              <div class='col'>
+                <%= form.collection_radio_buttons(:selectedOption, questionOptions, :id, :optionString) do |b|%>
+                  <div class = 'row'>
+                    <div class = 'col d-inline'>
+                      <%= b.label(class: 'd-inline', style: 'color:#fff;') {b.radio_button(class: 'd-inline-block') + b.label(class: 'd-inline', style: 'color:#fff;padding-left:5px;')}%>
+                    </div>
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <%# Question is single-answer, don't display options, just display a text box instead %>
+          <div class="field">
+          <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
+            <div class='col'>
+              <%= form.text_field :givenAnswer, class:"border rounded d-inline", placeholder:"Answer", style:"width: 80%;height: 40px;padding-left: 5px;min-width: 162px;" %>
+            </div>
+          </div>
+          <div class="field">
+        <% end %>
+            
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height: 20px;"></div>
+<% end %>
+<% end %>

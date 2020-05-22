@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  survey: one
+  questionString: MyString
+  multipleChoice: false
+  multipleAnswer: false
+
+two:
+  survey: two
+  questionString: MyString
+  multipleChoice: false
+  multipleAnswer: false

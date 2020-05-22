@@ -1,0 +1,1 @@
+json.partial! "question_option_selections/question_option_selection", question_option_selection: @question_option_selection

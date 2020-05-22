@@ -1,0 +1,10 @@
+$(document).on('turbolinks:load', function() {
+  var eventSource = new EventSource(
+  "<%#= Rails.application.routes.url_helpers.home_stream_test_path %>");
+  $(eventSource).bind("home_stream", function(event) {
+    var data = $.parseJSON(event.originalEvent.data);
+    var x = "Total Surveys: " + Math.round(data.total_surveys.toFixed(2));
+    console.log(x);
+    $('.total_surveys').html(x);
+  });
+});

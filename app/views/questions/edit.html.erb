@@ -1,0 +1,6 @@
+<h1>Editing Question</h1>
+
+<%= render 'form', question: @question %>
+
+<%= link_to 'Show', [@survey, @question] %> |
+<%= link_to 'Back', survey_questions_path(@survey) %>
