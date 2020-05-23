@@ -5,9 +5,8 @@
     Click accept to allow the use of cookies and storage of data you input into this website. Follow this link to view our <%= link_to("Terms of Service", home_termsofservice_path, class: 'link', style:"background-color:transparent!important;color:#0000EE;") %>.
     </p>
     </div>
-    <div class="col col-md-3" style="max-width:260px;padding: 5px 0px;">
+    <div class="col col-md-3 text-center" style="max-width:160px;padding: 5px 0px;">
         <%= link_to 'Accept', request.original_url, id:"accept", class: 'btn btn-default d-inline-block', style:'white-space:nowrap;' %>
-        <%= link_to 'Delete cookies', request.original_url, id: 'delete-cookies', data: { done: 'Cookies have been deleted' }, class: 'btn btn-primary d-inline-block', style:'white-space:nowrap;' %>
     </div>
     </div>
 </div>
