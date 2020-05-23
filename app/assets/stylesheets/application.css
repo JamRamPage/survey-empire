@@ -198,3 +198,10 @@ input {
         width:100%;
     }
 }
+
+#announcement-bar {
+    border: 2px solid #000;
+    background-color: #e5e5e5;
+    width:100%;
+    padding: 10px;
+}
