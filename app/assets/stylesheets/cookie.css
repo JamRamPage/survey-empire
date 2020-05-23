@@ -1,0 +1,25 @@
+#cookies-bar {
+    border: 2px solid #000;
+    border-bottom: none;
+    background-color: #e5e5e5;
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:999;
+    width:100%;
+}
+
+#cookies-bar a {
+    color: #fff;
+    background-color: #d55122;
+    outline: none;
+    border-color: #d55122;
+    box-shadow: none;
+}
+
+@media (max-width: 767px) {
+    .right-part a {
+        width: 80%;
+    }
+} 

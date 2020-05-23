@@ -20,6 +20,7 @@
 //= require Chart.bundle
 //= require chartkick
 //= require bootstrap
+//= require js.cookie
 //= require Sidebar
 //= require table
 //= require_tree .

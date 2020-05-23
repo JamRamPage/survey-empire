@@ -39,8 +39,8 @@
           <div class="field">
             <% for questionOption in questionOptions.each %>
               <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
-                <div class='col'>
-                  <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
+                <div class='col' style="color:#fff;">
+                  <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, false, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
                   <%= questionOption.optionString %>
                 </div>
               </div>
@@ -122,7 +122,7 @@
             <% for questionOption in questionOptions.each %>
               <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
                 <div class='col'>
-                  <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
+                  <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, false, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
                   <%= questionOption.optionString %>
                 </div>
               </div>

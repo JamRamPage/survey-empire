@@ -1,8 +1,13 @@
 <div class="row" style="background-image: url(<%= asset_path 'background_6.jpg' %>);min-height: calc(100% - 88px);">
       <div class="col">
           <%= form_with(model: survey, local: true) do |form| %>
+            
             <% if survey.errors.any? %>
-              <div id="error_explanation">
+            <div class="row" style="max-width:500px;margin-top: 5%;margin-left: 8%;margin-right: 5%;">
+            <div class="col">
+              <div style="text-align:none;margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
+                
+              <div id="error_explanation" style="width:auto;margin: 0px auto;">
                 <h2><%= pluralize(survey.errors.count, "error") %> prohibited this survey from being saved:</h2>
 
                 <ul>
@@ -11,9 +16,12 @@
                 <% end %>
                 </ul>
               </div>
+              </div>
+              </div>
+              </div>
             <% end %>
 
-            <div class="row" style="margin-top: 5%;margin-left: 8%;margin-right: 5%;">
+            <div class="row" style="margin-top: 20px;margin-left: 8%;margin-right: 5%;">
               <div class="col d-inline-block">
                 <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
                   <div class="field">
@@ -31,9 +39,8 @@
               <div class="col d-inline-block">
                 <div style="margin-left: auto;padding: 10px 10px;background-color: #df7c59;margin-right: auto;opacity: 1;">
                   <div class="field">
-                    <p style="width: 10%;height: 100%;margin-bottom: 0px;color: #fff;">Deploy&nbsp;Now?&nbsp;(Users&nbsp;will&nbsp;be&nbsp;able&nbsp;to&nbsp;answer&nbsp;if&nbsp;true)</p>
+                    <p style="height: 100%;margin-bottom: 0px;color: #fff;">Deploy&nbsp;Now?&nbsp;(Users will be able to answer the survey if checked but editing will be disabled)</p>
                     <div style="height: 5px;"></div>
-                    <%= form.label :deployed %>
                     <%= form.check_box :deployed %>
                   </div>
                 </div>

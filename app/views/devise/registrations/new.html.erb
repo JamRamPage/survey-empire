@@ -27,12 +27,14 @@
                             </div>
 
                             <div class="field">
-                              <%= f.password_field :password, autocomplete: "new-password", placeholder:"Confirm Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent!important;background-color: #fff;" %>
+                              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder:"Confirm Password", class:"border rounded", style: "width: 100%;height: 40px;padding-left: 5px;box-shadow: 0 0 0 0 transparent!important;background-color: #fff;" %>
                             </div>
 
                             <div class="field text-left form-check">
                               <%= f.check_box :consent, class:'form-check-input' %>
-                              <%= f.label :consent, "By Clicking agree", class:'form-check-label', style: 'color: #fff;margin:0;' %>
+                              <%= f.label :consent, class:'form-check-label', style: 'color: #fff;margin:0;' do%>
+                                <% ("I agree to the #{link_to("Terms of Service", home_termsofservice_path, class: 'link', style:"color:#0000EE;")}.").html_safe %>
+                              <% end %>
                             </div>
 
                             <div class="actions text-left">

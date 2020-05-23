@@ -21,6 +21,7 @@
  @import 'Sidebar';
  @import 'Sidebar-1';
  @import 'font-awesome';
+ @import 'cookie';
 
 #home_image {
     width: 30%;
@@ -179,6 +180,21 @@ tr {
     background-color: red;
 }
 
+.field_with_errors select { 
+    border-color: red !important;
+    border-width: 2px !important;
+}
+
 input {
     outline: none !important;
+}
+
+.question-input {
+    width:70%;
+}
+
+@media (max-width:768px) { 
+    .question-input {
+        width:100%;
+    }
 }

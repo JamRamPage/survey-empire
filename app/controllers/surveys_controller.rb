@@ -1,5 +1,6 @@
 class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_action :check_deployed, only: [:edit, :update]
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   include ActionController::Live
 
@@ -47,6 +48,8 @@ class SurveysController < ApplicationController
       #remove this to allow data streaming (though it won't stream yet :()
       #with this, the relevant survey details are sent as JSON objects.
       #survey_analytics()
+    elsif !cookies[:allow_cookies]
+      puts 'showing accept cookie page'
     else
       puts 'showing form to answer survey'
     end
@@ -195,7 +198,7 @@ class SurveysController < ApplicationController
   def destroy
     @survey.destroy
     respond_to do |format|
-      format.html { redirect_to surveys_url, notice: 'Survey was successfully destroyed.' }
+      format.html { redirect_to surveys_path(drafts:true), notice: 'Survey was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -212,5 +215,11 @@ class SurveysController < ApplicationController
       :questions_attributes => [:id, :survey_id, :questionString, :multipleChoice, :multipleAnswer, :created_at, :updated_at, :_destroy,
         :question_options_attributes => [:id, :question_id, :optionString, :correct, :created_at, :updated_at, :_destroy]]
       )
+    end
+
+    def check_deployed
+      if @survey.deployed == true
+        redirect_to root_path
+      end
     end
 end

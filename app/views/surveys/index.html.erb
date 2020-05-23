@@ -17,6 +17,7 @@
                         <tr>
                             <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Survey Title</th>
                             <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Public?</th>
+                            <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Deployed?</th>
                             <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Date Created</th>
                             <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Expiry Date</th>
                             <th class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;">Questions</th>
@@ -32,13 +33,14 @@
                             <tr>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.survey_name%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.public %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.deployed %></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.created_at%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.expiryDate%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.questions.size%></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.ratings.average(:rating_value)%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= survey.ratings.average(:rating_value).presence || '-'%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Show Analysis', survey_path(survey) + '?analyse=true', class:"link-table" %></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
-                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Edit', edit_survey_path(survey), class:"link-table" %></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= if survey.expiryDate > DateTime.current then (link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table") else 'Survey Ended' end%></td>
+                              <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= if survey.deployed == false then (link_to 'Edit', edit_survey_path(survey), class:"link-table") else 'Not available' end%></td>
                               <td class="text-center" style="color: #fff;background-color: #df7c59;border-color:#fff;"><%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' }, class:"link-table" %></td>
                             </tr>
                         <% end %>
@@ -95,7 +97,7 @@
                               <% if QuestionAnswer.where(:survey_id => survey).where(:user_id => current_user).take != nil then %>
                                 <td class="text-center" style="color: #fff;background-color: #df7c59;">Already Answered :(</td>
                               <% else %>
-                                <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table" %></td>
+                                <td class="text-center" style="color: #fff;background-color: #df7c59;"><%= if survey.expiryDate > DateTime.current then (link_to 'Answer Survey', survey_path(survey) + '?answered=false', class:"link-table") else 'Survey Ended' end %></td>
                               <% end %>
                             </tr>
                           <% end %>
