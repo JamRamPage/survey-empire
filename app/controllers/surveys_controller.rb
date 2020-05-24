@@ -1,6 +1,7 @@
 class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
   before_action :check_deployed, only: [:edit, :update]
+  #before_action :check_premium, only: [:new, :create]
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   include ActionController::Live
 
@@ -219,6 +220,12 @@ class SurveysController < ApplicationController
 
     def check_deployed
       if @survey.deployed == true
+        redirect_to root_path
+      end
+    end
+
+    def check_premium
+      if current_user.premium == false
         redirect_to root_path
       end
     end

@@ -1,0 +1,99 @@
+<%= stripe_javascript_tag %>
+<div class="page-content-wrapper" style="height: 100vh;min-width: 400px;">
+            <div class="container-fluid" style="height: 100%;">
+                <div class="row" style="background-color: #a3a3a3;">
+                    <div class="col col-md-1" style="max-width: 60px;"><a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="color: #d55122;"></i></a></div>
+                    <div class="col text-center d-inline-block">
+                        <h1 class="d-inline" style="color: #d55122;margin-bottom: 0;white-space:nowrap">Subscription Plans</h1><%= image_tag ("SurveyEmpireLogo2.png"), class: 'd-inline float-right', style: "width: 50px;"%>
+                        <div style="height: 40px;"></div>
+                    </div>
+                </div>
+                <div class="row" style="min-height: calc(100% - 88px);">
+                    <div class="col d-inline-block" style="background-image: url(<%= asset_path 'background_6.jpg' %>);">
+                        <div class="text-center" style="padding: 10px 10px;background-color: #df7c59;margin-top: 5%;min-width: 285px;max-width: 450px;margin-right: auto;margin-left: auto;margin-bottom: 20px;">
+                          <%= form_tag({:controller => "orders", :action => "submit" }, {:id => 'order-details'}) do %>
+                            <input id="order-type" name="orders[payment_gateway]" type="hidden" value="stripe"></input>
+                            <div class="form_row">
+                              <% @products_subscription.each do |product| %>
+                                <div>
+                                  <%= radio_button_tag 'orders[product_id]', product.id, true %>
+                                  <span id="radioButtonName<%= product.id %>" style="color:#fff;"><%= product.name %></span>
+                                  <span data-price="<%= product.price_cents %>" id="radioButtonPrice<%= product.id %>" style="color:#fff;"><%=humanized_money_with_symbol product.price%></span>
+                                </div>
+                              <% end %>
+                            </div>
+                            <hr/>
+                            <h4 style="color:#fff;">Payment Method</h4>
+                            <div class="form_row"></div>
+                            <br/>
+                            <div class="paymentSelectionTab active" id="tab-stripe">
+                              <div id="card-element" style="background-color:#fff;padding:10px; border-radius:5px;"></div>
+                              <div id="card-errors" role="alert" style="color:red!important;"></div>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <%= submit_tag "Buy it!", id: "submit-stripe", class:"btn btn-primary Submit", style: "background-color: #d55122;border-color: #d55122;width: 100%;height: 50px;box-shadow: 0 0 0 0 transparent;" %>
+                            </div>
+                            <br/>
+                            <hr/>
+                          <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function changeTab() {
+  var newActiveTabID = $('input[name="payment-selection"]:checked').val();
+  $('.paymentSelectionTab').removeClass('active');
+  $('#tab-' + newActiveTabID).addClass('active');
+};
+(function setupStripe() {
+  //Initialize stripe with publishable key
+  var stripe = Stripe("<%= escape_javascript ENV['STRIPE_PUBLISHABLE_KEY'] %>");
+
+  //Create Stripe credit card elements.
+  var elements = stripe.elements();
+  var card = elements.create('card');
+
+  //Add a listener in order to check if
+  card.addEventListener('change', function(event) {
+    //the div card-errors contains error details if any
+    var displayError = document.getElementById('card-errors');
+    document.getElementById('submit-stripe').disabled = false;
+    if (event.error) {
+      // Display error
+      displayError.textContent = event.error.message;
+    } else {
+      // Clear error
+      displayError.textContent = '';
+    }
+  });
+
+  // Mount Stripe card element in the #card-element div.
+  card.mount('#card-element');
+  var form = document.getElementById('order-details');
+  // This will be called when the #submit-stripe button is clicked by the user.
+  form.addEventListener('submit', function(event) {
+    $('#submit-stripe').prop('disabled', true);
+    event.preventDefault();
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        // Inform that there was an error.
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        // Submits the order
+        var $form = $("#order-details");
+        // Add a hidden input orders[token]
+        $form.append($('<input type="hidden" name="orders[token]"/>').val(result.token.id));
+        // Set order type
+        $('#order-type').val('stripe');
+        $form.submit();
+      }
+    });
+    return false;
+  });
+}()); 
+</script>

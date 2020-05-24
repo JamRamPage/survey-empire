@@ -121,7 +121,7 @@
           <div class="field">
             <% for questionOption in questionOptions.each %>
               <div class='row' style="margin-left: 1%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
-                <div class='col'>
+                <div class='col' style="color:#fff;">
                   <%= check_box_tag "question_answer[selectedOptions][]", questionOption.id, false, class:"d-inline", style:"color: #fff;padding-left: 2%;"%>
                   <%= questionOption.optionString %>
                 </div>
@@ -155,7 +155,7 @@
         <% end %>
             
         <div class="actions">
-          <%= form.submit %>
+          <%= form.submit"Answer Question", class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
         </div>
       </div>
     </div>

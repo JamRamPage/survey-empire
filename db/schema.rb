@@ -10,28 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_120854) do
+ActiveRecord::Schema.define(version: 2020_05_24_194835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "user_id"
+    t.integer "status"
+    t.string "token"
+    t.string "charge_id"
+    t.string "error_message"
+    t.string "customer_id"
+    t.integer "payment_gateway"
+    t.integer "price_cents", default: 0, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "stripe_plan_name"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+  end
+
   create_table "question_answers", force: :cascade do |t|
-    t.integer "question_id", null: false
-    t.integer "user_id", null: false
-    t.string "givenAnswer"
-    t.datetime "timeStarted"
-    t.datetime "timeEnded"
+    t.bigint "question_id", null: false
+    t.bigint "user_id", null: false
+    t.string "givenAnswer", comment: "can be null as answer may be a selection instead of text entry"
+    t.datetime "timeStarted", comment: "null before question started???"
+    t.datetime "timeEnded", comment: "null before answer submitted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "survey_id"
+    t.bigint "survey_id"
     t.index ["question_id"], name: "index_question_answers_on_question_id"
     t.index ["survey_id"], name: "index_question_answers_on_survey_id"
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
 
   create_table "question_option_selections", force: :cascade do |t|
-    t.integer "question_answer_id", null: false
-    t.integer "question_option_id", null: false
+    t.bigint "question_answer_id", null: false
+    t.bigint "question_option_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_answer_id"], name: "index_question_option_selections_on_question_answer_id"
@@ -39,16 +58,16 @@ ActiveRecord::Schema.define(version: 2020_05_21_120854) do
   end
 
   create_table "question_options", force: :cascade do |t|
-    t.integer "question_id", null: false
+    t.bigint "question_id", null: false
     t.string "optionString", null: false
-    t.boolean "correct"
+    t.boolean "correct", comment: "can be null, if the survey is subjective"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
-    t.integer "survey_id", null: false
+    t.bigint "survey_id", null: false
     t.string "questionString", null: false
     t.boolean "multipleChoice", default: false, null: false
     t.boolean "multipleAnswer", default: false, null: false
@@ -73,7 +92,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_120854) do
     t.integer "dislikes", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "survey_name", default: "", null: false
     t.boolean "deployed", default: false
     t.index ["user_id"], name: "index_surveys_on_user_id"
@@ -88,8 +107,18 @@ ActiveRecord::Schema.define(version: 2020_05_21_120854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "consent"
+    t.string "stripe_customer_id"
+    t.boolean "premium", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "question_answers", "questions"
+  add_foreign_key "question_answers", "surveys"
+  add_foreign_key "question_answers", "users"
+  add_foreign_key "question_option_selections", "question_answers"
+  add_foreign_key "question_option_selections", "question_options"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "surveys"
+  add_foreign_key "surveys", "users"
 end

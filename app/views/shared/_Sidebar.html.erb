@@ -5,9 +5,17 @@
             <%= link_to('Home', root_path, :style=> "color: #fff;") %>
         </li>
         <li><%= link_to('My Account', edit_user_registration_path)%></li>
-        <li><%= link_to('Create', new_survey_path)%></li>
-        <li><%= link_to('Search', surveys_path)%></li>
+        <li><div data-turbolinks="false"><%= link_to('Premium', home_payments_path)%></div></li>
         <li> <%= link_to('My Surveys', surveys_path(drafts:true))%></li>
+        <% if current_user.premium == true %>
+          <li><%= link_to('Create', new_survey_path)%></li>
+        <% else %>
+          <li><div data-turbolinks="false"><%= link_to('Premium', home_payments_path)%></div></li>
+        <% end %>
+        <li><%= link_to('Search', surveys_path)%></li>
+        <% if current_user.premium == true %>
+          <li> <%= link_to('My Surveys', surveys_path(drafts:true))%></li>
+        <% end %>
         <li><%= link_to('About', home_about_path)%></li>
         <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
         <li><%= link_to('Terms of Service', home_termsofservice_path)%></li>

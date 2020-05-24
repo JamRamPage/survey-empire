@@ -3,6 +3,7 @@
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <% if user_signed_in? %>
+<% if current_user.premium == true %>
   <div class="page-content-wrapper" style="min-height: 100vh;min-width: 430px;background-image: url(<%= asset_path 'background_6.jpg' %>);">
   <%#= render 'shared/Announcements' %>
   <div class="container-fluid" style="height: 100%;">
@@ -30,6 +31,35 @@
     </div>
   </div>
   </div>
+<% else %>
+<div class="page-content-wrapper" style="min-height: 100vh;min-width: 430px;background-image: url(<%= asset_path 'background_6.jpg' %>);">
+  <%#= render 'shared/Announcements' %>
+  <div class="container-fluid" style="height: 100%;">
+    <a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle">
+      <i class="fa fa-bars" id="side-button" style="color: #d55122;"></i>
+    </a>
+    <div class="row">
+        <div class="col-md-12" style="height: auto;">
+          <div class="text-center">
+            <%= image_tag ("SurveyEmpireLogo1.png"), id: 'home_image'%>
+          </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 5%;">
+        <div class="col">
+          <div class="text-center" style="padding: 10px 10px;">
+          <%= link_to('PREMIUM',  home_payments_path, 'data-no-turbolink' => true, :class=> 'btn btn-primary',:style=> 'height: 80px;width: 160px;background-color: #d55122;color: #fff;border-color: #d55122;line-height: 65px;box-shadow: 0 0 0 0 transparent;')%>
+          </div>
+        </div>
+        <div class="col">
+          <div class="text-center" style="padding: 10px 10px;">
+            <%= link_to('SEARCH', surveys_path, :class=> 'btn btn-primary',:style=> 'height: 80px;width: 160px;background-color: #d55122;color: #fff;border-color: #d55122;line-height: 65px;box-shadow: 0 0 0 0 transparent;')%>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+<% end %>
 <% else %>
   <div class="page-content-wrapper" style="min-height: 100vh;min-width: 430px;background-image: url(<%= asset_path 'background_6.jpg' %>);">
   <%#= render 'shared/Announcements' %>

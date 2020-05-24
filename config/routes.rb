@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'home/termsofservice'
   get 'home/about'
   devise_for :users
+  get 'home/payments', to: 'orders#index'
+  post '/orders/submit', to: 'orders#submit'
   #UNCOMMENT BELOW to stream the homepage
   #get 'home/stream_test'
   # => default maps homepage to that action

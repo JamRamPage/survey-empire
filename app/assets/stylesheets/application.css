@@ -205,3 +205,11 @@ input {
     width:100%;
     padding: 10px;
 }
+
+.paymentSelectionTab {
+    display: none;
+}
+
+.paymentSelectionTab.active {
+    display: block !important;
+}
