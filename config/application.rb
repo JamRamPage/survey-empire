@@ -5,6 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+Lockbox.master_key = ENV['LOCKBOX_MASTER_KEY']
 
 module SurveyEmpire
   class Application < Rails::Application

@@ -4,7 +4,7 @@ class SurveyAnalysisController < ApplicationController
 
   def analyse_survey
     puts 'analysing survey'
-    puts @survey = Survey.find(1)
+    puts @survey = Survey.find(1r)
     puts request.original_url
     @questions = @survey.questions
 
