@@ -2,7 +2,10 @@ $(document).ready(function() { // call in the right document???
 
 	function LoadGoogle(qId, qTitle, answerList, countList, percList, timesTakenList) {
 		google.charts.load('current', {
-			callback: drawChart,
+			callback: function () {
+    			drawChart();
+    			$(window).resize(drawChart);
+  			},
 			packages:['corechart']
 		});
 
@@ -17,9 +20,7 @@ $(document).ready(function() { // call in the right document???
 				questionStats.push([ answerList[answerId], countList[answerId] ]);
 			}
 			data.addRows(questionStats);
-			var options = {'title':qTitle + " - Count of people",
-										 'width':800,
-										 'height':300};
+			var options = {title: qTitle + " - Count of people",chartArea: {width: '100%', left: 80, right: 80},legend: {position: 'top'}, width:'100%', height:'300'};
 			var chart = new google.visualization.BarChart(document.getElementById('chart_div_count' + qId));
 			chart.draw(data, options);
 
@@ -33,9 +34,7 @@ $(document).ready(function() { // call in the right document???
 				questionStats.push([ answerList[answerId], percList[answerId] ]);
 			}
 			data.addRows(questionStats);
-			var options = {'title':qTitle + " - Percentage of people",
-										 'width':800,
-										 'height':300};
+			var options = {'title':qTitle + " - Percentage of people",chartArea: {width: '100%', left: 80, right: 80},legend: {position: 'top'}, width:'100%', height:'300'};
 			var chart = new google.visualization.BarChart(document.getElementById('chart_div_perc' + qId));
 			chart.draw(data, options);
 
@@ -50,64 +49,90 @@ $(document).ready(function() { // call in the right document???
 				questionStats.push([ timeList[id], timesTakenList[id] ]);
 			}
 			data.addRows(questionStats);
-			var options = {'title':qTitle + " - Time taken Histogram",
-										 'width':800,
-										 'height':300};
+			var options = {'title':qTitle + " - Time taken Histogram",chartArea: {width: '100%', left: 80, right: 80},legend: {position: 'top'}, width:'100%', height:'300'};
+			
 			var chart = new google.visualization.BarChart(document.getElementById('chart_div_time' + qId));
-			chart.draw(data, options);
+			chart.draw(data, options);		
 		}
 	}
 	var eventSource = new EventSource("<%= Rails.application.routes.url_helpers.survey_analysis_analyse_survey_path %>");
 	$(eventSource).bind("updateTables", function(event) {
+		var url = window.location.href;
+		var re = new RegExp("surveys/[0-9]*");
+		var survey_id = url.match(re)[0];
+		survey_id = survey_id.substring(8);
+		console.log(survey_id);
+
 		var data = $.parseJSON(event.originalEvent.data);
-		var numberOfQuestions = data.numberOfQuestions;
-		$('#rating').html(data.rating);
+		var text = survey_id;
+		text += "numberOfQuestions";
+		var numberOfQuestions = data[text];
+		var text = survey_id;
+		text += "rating";
+		if (data[text] == null) {
+			$('#rating').html('-/5');
+		} else{
+			$('#rating').html(data[text]+'/5');
+		}
+		
 		$('#tableOfQuestions').html('');
 		var qId;
     for (qId = 1; qId <= numberOfQuestions; qId++) {
-			console.log(data);
-			var text = "questionTitle";
+			
+			var text = survey_id;
+			text += "questionTitle";
 			text += qId;
 			var qTitle = data[text];
-			$('#tableOfQuestions').append("Question Title: " + qTitle + "<br>");
-			var text = "totalAnswers";
+			$('#tableOfQuestions').append("<h3>"+ qTitle + "</h3><br>");
+			var text = survey_id;
+			text += "totalAnswers";
 			text += qId;
-			$('#tableOfQuestions').append("Total answers was: " + data[text] + "<br>");
-			var text = "correctAnswers";
+			$('#tableOfQuestions').append("Number of answers received: " + data[text] + "<br>");
+			var text = survey_id;
+			text += "correctAnswers";
 			text += qId;
 			var correctAnswers = data[text];
-			$('#tableOfQuestions').append("Correct options were: " + correctAnswers);
+			if (correctAnswers == '') {
+				$('#tableOfQuestions').append("There are no correct options<br>");
+			} else {
+				$('#tableOfQuestions').append("Correct options were: " + correctAnswers+ "<br>");
+			}
+			
 			var questionStatistics = "<table><thead><tr>";
-			text = "listOfAnswers";
+			var text = survey_id;
+			text += "listOfAnswers";
 			text += qId;
 			var answerList = data[text];
-			text = "countOfAnswers";
+			var text = survey_id;
+			text += "countOfAnswers";
 			text += qId;
 			var countList = data[text];
-			text = "percentageForAnswers";
+			var text = survey_id;
+			text += "percentageForAnswers";
 			text += qId;
 			var percList = data[text];
-			text = "timesTaken";
+			var text = survey_id;
+			text += "timesTaken";
 			text += qId;
 			var timeList = data[text];
 
 			$("Question " + qId).appendTo($('#tableOfQuestions'));
 			// Adds the span container where the count of answers chart is displayed
-			var str = "<span id='chart_div_count";
+			var str = "<div class='chart' id='chart_div_count";
 			str += qId;
-			str += "'></span>";
+			str += "'></div>";
 			$(str).appendTo($('#tableOfQuestions'));
 
 			// Adds the span container where the percentage for answers chart is displayed
-			var str = "<span id='chart_div_perc";
+			var str = "<div class='chart' id='chart_div_perc";
 			str += qId;
-			str += "'></span>";
+			str += "'></div>";
 			$(str).appendTo($('#tableOfQuestions'));
 
 			// Adds the span container where the time taken for answers chart is displayed
-			var str = "<span id='chart_div_time";
+			var str = "<div class='chart' id='chart_div_time";
 			str += qId;
-			str += "'></span>";
+			str += "'></div>";
 			$(str).appendTo($('#tableOfQuestions'));
 
 			//Now we've loaded the appropriate data, we'll display it in a graph
@@ -132,6 +157,9 @@ $(document).ready(function() { // call in the right document???
 			questionStatistics += "</tr></tbody></table>";
 			$('#tableOfQuestions').append(questionStatistics);
 			*/
+
+			$('#tableOfQuestions').append('<hr/>');
 		}
 	});
+	
 });

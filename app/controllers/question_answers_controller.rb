@@ -44,14 +44,15 @@ class QuestionAnswersController < ApplicationController
           @question_option_selection.question_answer_id = @question_answer.id
           @question_option_selection.save
         end
-        #format.html { redirect_to @question_answer, notice: 'Question answer was successfully created.' }
-        #format.json { render :show, status: :created, location: @question_answer }
+        # format.html { redirect_to survey_path(:survey_id), notice: 'Question answer was successfully created.' }
+        # format.json { render :show, status: :created, location: @question_answer }
       else
         format.html { render :new }
         format.json { render json: @question_answer.errors, status: :unprocessable_entity }
       end
     #end
     #redirect_to action: :
+    
   end
 
   # PATCH/PUT /question_answers/1

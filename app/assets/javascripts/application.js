@@ -23,6 +23,7 @@
 //= require js.cookie
 //= require Sidebar
 //= require table
+//= require question_answers
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {

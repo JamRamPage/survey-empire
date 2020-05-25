@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-<%= form_with(model: question_answer, question: question, local: true) do |form| %>
+<%= form_with(model: question_answer, question: question, local: true, class:'question-answer') do |form| %>
   <div class="row answer-question">
     <div class="col d-inline-block">
       <div style="margin-left: 8%;padding: 10px 10px;background-color: #df7c59;margin-right: 5%;">
@@ -73,7 +73,7 @@
         <% end %>
             
         <div class="actions">
-          <%= form.submit "Answer Question", class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
+          <%= form.submit "Answer Question", id: question.id ,class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
         </div>
       </div>
     </div>

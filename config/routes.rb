@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   get 'survey_analysis/analyse_survey'
   #get 'surveys/:id?analyse=true', to: 'survey_analysis#analyse_survey'
   resources :question_answers do
@@ -12,8 +11,8 @@ Rails.application.routes.draw do
     end
   end
   post 'surveys/:id', to: 'surveys#surveyReact'
-  get 'surveys/:id?analyse=true', to: 'surveys#survey_analytics'
-  get 'surveys/survey_analytics'
+  #get 'surveys/survey_analytics'
+  #get 'surveys/:id?analyse=true', to: 'surveys#survey_analytics'
   root 'home#home'
   get 'home/termsofservice'
   get 'home/about'

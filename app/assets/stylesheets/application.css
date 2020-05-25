@@ -213,3 +213,7 @@ input {
 .paymentSelectionTab.active {
     display: block !important;
 }
+
+.chart{
+    width: 100%;
+}

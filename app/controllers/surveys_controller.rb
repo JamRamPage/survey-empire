@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :survey_analytics]
   before_action :check_deployed, only: [:edit, :update]
   #before_action :check_premium, only: [:new, :create]
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
@@ -59,7 +59,7 @@ class SurveysController < ApplicationController
   # GET /surveys/1/survey_analytics
   def survey_analytics
     puts 'analysing survey'
-    puts @survey = Survey.find(1)
+    #puts @survey = Survey.find(params[:id])
     @questions = @survey.questions
 
     response.headers['Content-Type'] = 'text/event-stream'

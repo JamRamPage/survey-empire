@@ -12,7 +12,7 @@
         <%= radio_button_tag(:rating_value, '1', checked = false, id: "star1") %>
         <label for="star1" title="text">1 star</label>
         <div class="Action" style="height:100%;line-height:46px;">
-            <%= submit_tag 'Rate', class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;" %>
+            <%= submit_tag 'Rate', class:"btn btn-primary Submit", style:"color:#fff;background-color: #d55122;border-color: #d55122;box-shadow: 0 0 0 0 transparent;", data: { disable_with: "Rated" } %>
         </div>
     </div>
 </div>
