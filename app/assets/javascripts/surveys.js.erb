@@ -95,7 +95,11 @@ $(document).ready(function() { // call in the right document???
 			if (correctAnswers == '') {
 				$('#tableOfQuestions').append("There are no correct options<br>");
 			} else {
-				$('#tableOfQuestions').append("Correct options were: " + correctAnswers+ "<br>");
+				if (correctAnswers.includes(',')) {
+					$('#tableOfQuestions').append("Correct options were: " + correctAnswers+ "<br>");
+				} else {
+					$('#tableOfQuestions').append("Correct option was: " + correctAnswers+ "<br>");
+				}
 			}
 			
 			var questionStatistics = "<table><thead><tr>";
