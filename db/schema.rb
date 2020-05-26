@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_194835) do
+ActiveRecord::Schema.define(version: 2020_05_26_143046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,12 +37,12 @@ ActiveRecord::Schema.define(version: 2020_05_24_194835) do
   create_table "question_answers", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.bigint "user_id", null: false
-    t.string "givenAnswer", comment: "can be null as answer may be a selection instead of text entry"
-    t.datetime "timeStarted", comment: "null before question started???"
-    t.datetime "timeEnded", comment: "null before answer submitted"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "survey_id"
+    t.text "givenAnswer_ciphertext"
+    t.text "timeStarted_ciphertext"
+    t.text "timeEnded_ciphertext"
+    t.text "created_at_ciphertext"
+    t.text "updated_at_ciphertext"
     t.index ["question_id"], name: "index_question_answers_on_question_id"
     t.index ["survey_id"], name: "index_question_answers_on_survey_id"
     t.index ["user_id"], name: "index_question_answers_on_user_id"
@@ -51,28 +51,28 @@ ActiveRecord::Schema.define(version: 2020_05_24_194835) do
   create_table "question_option_selections", force: :cascade do |t|
     t.bigint "question_answer_id", null: false
     t.bigint "question_option_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "created_at_ciphertext"
+    t.text "updated_at_ciphertext"
     t.index ["question_answer_id"], name: "index_question_option_selections_on_question_answer_id"
     t.index ["question_option_id"], name: "index_question_option_selections_on_question_option_id"
   end
 
   create_table "question_options", force: :cascade do |t|
     t.bigint "question_id", null: false
-    t.string "optionString", null: false
-    t.boolean "correct", comment: "can be null, if the survey is subjective"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "optionString_ciphertext"
+    t.text "correct_ciphertext"
+    t.text "created_at_ciphertext"
+    t.text "updated_at_ciphertext"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.bigint "survey_id", null: false
-    t.string "questionString", null: false
-    t.boolean "multipleChoice", default: false, null: false
-    t.boolean "multipleAnswer", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "questionString_ciphertext"
+    t.text "multipleChoice_ciphertext"
+    t.text "multipleAnswer_ciphertext"
+    t.text "created_at_ciphertext"
+    t.text "updated_at_ciphertext"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
@@ -85,32 +85,30 @@ ActiveRecord::Schema.define(version: 2020_05_24_194835) do
   end
 
   create_table "surveys", force: :cascade do |t|
-    t.boolean "public", default: false, null: false
-    t.datetime "creationDate", null: false
-    t.datetime "expiryDate", null: false
     t.integer "likes", default: 0, null: false
     t.integer "dislikes", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.string "survey_name", default: "", null: false
     t.boolean "deployed", default: false
+    t.text "public_ciphertext"
+    t.text "creationDate_ciphertext"
+    t.text "expiryDate_ciphertext"
+    t.text "created_at_ciphertext"
+    t.text "updated_at_ciphertext"
+    t.text "survey_name_ciphertext"
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "consent"
     t.string "stripe_customer_id"
     t.boolean "premium", default: false, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.text "email_ciphertext"
+    t.text "reset_password_token_ciphertext"
+    t.text "reset_password_sent_at_ciphertext"
+    t.text "remember_created_at_ciphertext"
+    t.text "created_at_ciphertext"
+    t.text "updated_at_ciphertext"
+    t.text "consent_ciphertext"
   end
 
   add_foreign_key "question_answers", "questions"

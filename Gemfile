@@ -78,5 +78,9 @@ gem 'jquery-datatables-rails', '~> 3.4.0'
 gem 'money-rails'
 gem 'stripe-rails'
 
+#gems for encryption
+gem 'lockbox'
+gem 'dotenv-rails'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

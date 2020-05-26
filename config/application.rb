@@ -5,6 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+Lockbox.master_key = ENV['LOCKBOX_MASTER_KEY']
 
 module SurveyEmpire
   class Application < Rails::Application
@@ -16,6 +17,7 @@ module SurveyEmpire
       ENV[key] = value
     end unless config_file.nil?
 
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
